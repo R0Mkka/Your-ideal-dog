@@ -1,0 +1,24 @@
+.workspace {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 75%;
+    height: 85%;
+    padding: 15px;
+    border: 3px solid $black;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.text {
+    padding: 15px 15px;
+    background-color: $black;
+    border-radius: 20px;
+    font-size: inherit;
+    font-weight: 300;
+    color: $white;
+}
+
+.text::selection {
+    background: transparent; 
+}

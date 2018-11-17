@@ -1,3 +1,21 @@
-<h1>
-    Main menu
-</h1>
+<section class="main-menu workspace">
+    <div class="main-menu__headline">
+        <p class="text">Главное меню</p>
+    </div>
+
+    <div class="main-menu__buttons">
+        <div *ngFor="let button of buttons" class="button menu-button">
+            <p class="button-text">{{ button }}</p>
+        </div>   
+    </div>
+
+    <div class="main-menu__add-features">
+        <div *ngFor="let button of addButtons" class="button add-features-button">
+            <p class="button-text">{{ button }}</p>
+        </div>
+
+        <div class="button" routerLink="/change-design">
+            AAA
+        </div>
+    </div>
+</section>

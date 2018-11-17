@@ -1,0 +1,43 @@
+.button {
+    cursor: pointer;
+    position: relative;
+    background-color: $black;
+    border: none;
+    border-radius: 15px;
+    color: $white;
+
+    // font-size: 25px;
+    // font-weight: 100;
+    // width: 50%;
+    // margin: 10px 0px;
+    // padding: 15px 60px;
+}
+
+.button:before {
+    content:'';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 5;
+    width: 0px;
+    height: 100%;
+    padding: 0px;
+    background: $red;
+    border-radius: 15px;
+    transition: all .3s ease-in-out;
+}
+
+.button:hover:before {
+    width: 100%;
+}
+
+.button {
+    .button-text {
+        position: relative;
+        z-index: 10;
+    }
+
+    .button-text::selection {
+        background: transparent;
+    }
+}

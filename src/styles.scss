@@ -1,15 +1,21 @@
+@import './assets/scss/colors';
+@import './assets/scss/buttons';
+@import './assets/scss/other';
+
 body {
     margin: 0px;
     padding: 0px;
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
+    background: url('/src/assets/images/background.jpg');
+    background-size: cover;
 }
 
 a {
     text-decoration: none;
 }
 
-button {
+*[routerLink], button {
     outline: none;
 }
 
@@ -17,3 +23,9 @@ p {
     margin: 0px;
     padding: 0px;
 }
+
+// .red-back { background-color: $red; }
+// .red-font { color: $red; }
+
+// .white-back { background-color: $white; }
+// .white-font { color: $white; }
