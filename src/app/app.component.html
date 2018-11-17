@@ -1,3 +1,8 @@
+<div class="loading" *ngIf="isLoading">
+    <img src="/src/assets/images/loading-dog.png" (load)="showSpinner()">
+    <div class="loading-spinner" *ngIf="isImageLoaded"></div>
+</div>
+
 <div class="page-content">
     <router-outlet></router-outlet>
 </div>

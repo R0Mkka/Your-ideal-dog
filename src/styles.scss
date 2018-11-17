@@ -1,6 +1,7 @@
 @import './assets/scss/colors';
 @import './assets/scss/buttons';
 @import './assets/scss/other';
+@import './assets/scss/spinners';
 
 body {
     margin: 0px;
@@ -15,7 +16,7 @@ a {
     text-decoration: none;
 }
 
-*[routerLink], button {
+.button {
     outline: none;
 }
 
@@ -23,9 +24,3 @@ p {
     margin: 0px;
     padding: 0px;
 }
-
-// .red-back { background-color: $red; }
-// .red-font { color: $red; }
-
-// .white-back { background-color: $white; }
-// .white-font { color: $white; }

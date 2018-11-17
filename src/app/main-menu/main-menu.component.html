@@ -1,21 +1,26 @@
-<section class="main-menu workspace">
+<section class="main-menu workspace" *ngIf="isContentLoaded">
     <div class="main-menu__headline">
         <p class="text">Главное меню</p>
     </div>
 
-    <div class="main-menu__buttons">
-        <div *ngFor="let button of buttons" class="button menu-button">
-            <p class="button-text">{{ button }}</p>
-        </div>   
+    <div class="main-menu__main-buttons">
+        <ng-container *ngFor="let button of mainButtons">
+            <div [routerLink]="button.route" 
+                 class="button menu-button"
+                 (click)="startLoading()">
+                <p class="button-text">{{ button.name }}</p>
+            </div>
+        </ng-container>
     </div>
 
-    <div class="main-menu__add-features">
-        <div *ngFor="let button of addButtons" class="button add-features-button">
-            <p class="button-text">{{ button }}</p>
-        </div>
-
-        <div class="button" routerLink="/change-design">
-            AAA
-        </div>
+    <div class="main-menu__other-features">
+        <ng-container *ngFor="let button of otherButtons">
+            <div [routerLink]="button.route"
+                 class="button other-features-button"
+                 (click)="startLoading()">
+                <p class="button-text">{{ button.name }}</p>
+            </div>
+        </ng-container>
     </div>
 </section>
+

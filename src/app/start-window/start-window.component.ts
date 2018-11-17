@@ -1,5 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+import { LoadingService } from '../core/loading/loading.service';
+
 @Component({
     selector: 'start-window',
     templateUrl: './start-window.component.html',
@@ -7,5 +9,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StartWindowComponent {
-    constructor() {}
+    constructor(private loading: LoadingService) {}
+
+    public startLoading() {
+        this.loading.show();
+    }
 }

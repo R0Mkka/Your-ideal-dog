@@ -12,9 +12,10 @@
         display: flex;
         justify-content: center;
         font-size: 40px;
+        font-weight: 100;
     }
 
-    &__buttons {
+    &__main-buttons {
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -29,12 +30,12 @@
         }
     }
 
-    &__add-features { 
+    &__other-features { 
         display: flex;
         justify-content: space-between;
         font-size: 16px;
 
-        .add-features-button {
+        .other-features-button {
             padding: 15px 60px;
             font-size: 25px;
             font-weight: 100;

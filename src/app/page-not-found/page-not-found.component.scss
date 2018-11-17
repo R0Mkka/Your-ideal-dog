@@ -1,0 +1,46 @@
+$white: #ffffff;
+$red-background: rgba(205, 53, 53, .8);
+
+:host {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.page-not-found {
+    position: relative;
+    background-color: $white;
+
+    &__back {
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        padding: 4px 12px 0px 12px;
+        border-radius: 15px;
+        background-color: $red-background;
+
+        img {
+            width: 25px;
+            height: 25px;
+            filter: invert(1);
+        }
+    }
+
+    &__error-404 {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        margin-bottom: 25px;
+        font-size: 40px;
+        font-weight: 100;
+    }
+
+    &__description {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: 100;
+    }
+}
