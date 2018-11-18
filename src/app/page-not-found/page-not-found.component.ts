@@ -2,8 +2,9 @@ import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@
 
 import { LoadingService } from 'src/app/core/loading/loading.service';
 import { DesignColorService } from 'src/app/core/design-color/design-color.service';
+import { LocalStorageService } from "src/app/core/local-storage/local-storage.service";
 
-import { ColorClasses } from 'src/app/dataTypes/colorClasses';
+import { WorkingWindow } from 'src/app/classes/workingWindow';
 
 @Component({
     selector: 'page-not-found',
@@ -11,38 +12,17 @@ import { ColorClasses } from 'src/app/dataTypes/colorClasses';
     styleUrls: ['./page-not-found.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PageNotFoundComponent implements OnInit {
-    public isContentLoaded: boolean;
-    public colorClasses: ColorClasses;
-
+export class PageNotFoundComponent extends WorkingWindow implements OnInit {
     constructor(
-        private loading: LoadingService,
-        private designColor: DesignColorService,
-        private cdRef: ChangeDetectorRef) {
-            this.isContentLoaded = false;
-            this.colorClasses = this.designColor.getClasses();
+        loading: LoadingService,
+        designColor: DesignColorService,
+        localStorage: LocalStorageService,
+        cdRef: ChangeDetectorRef) {
+            super(loading, designColor, localStorage, cdRef, 1);
         }
 
     ngOnInit(): void {
-        this.showContent();
-    }
-
-    private showContent(): void {
-        if (this.loading.getCurrentStatus()) {
-            setTimeout(() => {
-                this.loading.hide();
-                this.isContentLoaded = true;
-                if (!this.cdRef['destroyed']) {
-                    this.cdRef.detectChanges();
-                }
-            }, 500);
-
-            return;
-        }
-        
-        this.isContentLoaded = true;
-        if (!this.cdRef['destroyed']) {
-            this.cdRef.detectChanges();
-        }
+        this.initColorClasses();
+        this.showContent(500);
     }
 }

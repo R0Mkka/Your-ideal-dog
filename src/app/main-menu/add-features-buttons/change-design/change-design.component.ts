@@ -2,8 +2,9 @@ import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@
 
 import { LoadingService } from 'src/app/core/loading/loading.service';
 import { DesignColorService } from 'src/app/core/design-color/design-color.service';
+import { LocalStorageService } from "src/app/core/local-storage/local-storage.service";
 
-import { ColorClasses } from 'src/app/dataTypes/colorClasses';
+import { WorkingWindow } from 'src/app/classes/workingWindow';
 
 @Component({
     selector: 'change-design',
@@ -11,58 +12,39 @@ import { ColorClasses } from 'src/app/dataTypes/colorClasses';
     styleUrls: ['./change-design.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChangeDesignComponent implements OnInit {
-    public isContentLoaded: boolean;
-    public colorClasses: ColorClasses;
-
+export class ChangeDesignComponent extends WorkingWindow implements OnInit {
     constructor(
-        private loading: LoadingService,
-        private designColor: DesignColorService,
-        private cdRef: ChangeDetectorRef) {
-            this.isContentLoaded = false;
-            this.colorClasses = this.designColor.getClasses();
+        loading: LoadingService,
+        designColor: DesignColorService,
+        localStorage: LocalStorageService,
+        cdRef: ChangeDetectorRef) {
+            super(loading, designColor, localStorage, cdRef, 0);
         }
 
     ngOnInit(): void {
-        this.showContent();
+        this.initColorClasses();
+        this.showContent(1000);
     }
 
     public setRedDesign(): void {
-        this.designColor.changeClassesSet('red');
-        this.colorClasses = this.designColor.getClasses();
+        this.setDesignColor('red');
     }
 
     public setGreenDesign(): void {
-        this.designColor.changeClassesSet('green');
-        this.colorClasses = this.designColor.getClasses();
+        this.setDesignColor('green');
     }
 
     public setBlueDesign(): void {
-        this.designColor.changeClassesSet('blue');
-        this.colorClasses = this.designColor.getClasses();
+        this.setDesignColor('blue');
     }
 
     public setPurpleDesign(): void {
-        this.designColor.changeClassesSet('purple');
-        this.colorClasses = this.designColor.getClasses();
+        this.setDesignColor('purple');
     }
 
-    private showContent(): void {
-        if (this.loading.getCurrentStatus()) {
-            setTimeout(() => {
-                this.loading.hide();
-                this.isContentLoaded = true;
-                if (!this.cdRef['destroyed']) {
-                    this.cdRef.detectChanges();
-                }
-            }, 1000);
-
-            return;
-        }
-        
-        this.isContentLoaded = true;
-        if (!this.cdRef['destroyed']) {
-            this.cdRef.detectChanges();
-        }
+    private setDesignColor(color: string): void {
+        this.designColor.changeClassesSet(color);
+        this.colorClasses = this.designColor.getClasses();
+        this.localStorage.set('designColor', JSON.stringify(this.colorClasses));
     }
 }

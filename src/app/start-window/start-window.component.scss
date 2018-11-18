@@ -1,23 +1,17 @@
+$white: #ffffff;
+
 :host {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 85vh;
+    height: 85%;
 }
 
 .dogs {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-
-    .dog {
-        position: absolute;
-    }
-
     .grey {
         top: calc(50% - 125px);
-        left: 2%;
+        left: 1%;
     }
 
     .yellow {
@@ -32,7 +26,7 @@
 }
 
 .start-window {
-    background-color: #ffffff;
+    background-color: $white;
 
     &__headline {
         display: flex;

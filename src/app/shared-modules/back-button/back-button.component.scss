@@ -6,6 +6,7 @@ $purple: rgba(242, 95, 219, .9);
 .back {
     cursor: pointer;
     position: absolute;
+    z-index: 1;
     top: 15px;
     left: 15px;
     padding: 4px 12px 0px 12px;

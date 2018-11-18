@@ -1,5 +1,11 @@
-<section [class]="'page-not-found ' + colorClasses.workspace" *ngIf="isContentLoaded">
-    <back></back>
+<section *ngIf="isContentLoaded"
+         [class]="'page-not-found ' + colorClasses.workspace" 
+         [showContent]="isDogsLoaded">
+    <back-button></back-button>
+
+    <div class="dogs">
+        <img src="/src/assets/images/dogs/4.png" class="dog brown" (load)="dogLoaded()">
+    </div>
 
     <div class="page-not-found__error-404">
         Ошибка 404

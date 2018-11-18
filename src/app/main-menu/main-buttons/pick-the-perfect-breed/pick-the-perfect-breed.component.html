@@ -1,0 +1,32 @@
+<section *ngIf="isContentLoaded" 
+         [class]="'pick-the-perfect-breed ' + colorClasses.workspace" 
+         [showContent]="isDogsLoaded">
+    <back-button></back-button>
+
+    <div class="dogs">
+        <img src="/src/assets/images/dogs/8.png" class="dog yellow" (load)="dogLoaded()">
+        <img src="/src/assets/images/dogs/9.png" class="dog brown-white" (load)="dogLoaded()">
+    </div>
+
+    <div class="pick-the-perfect-breed__headline">
+        <p [class]="colorClasses.text">
+            Подбор идеальной собаки
+        </p>
+    </div>
+
+    <div class="pick-the-perfect-breed__introduction">
+        <p [class]="colorClasses.text">
+            Привет! Этот тест поможет определить, какая порода подойдет вам
+            лучше всего. Поэтому настоятельно рекомендуем проходить тест
+            максимально честно. Успехов в выборе домашнего питомца :)
+        </p>
+    </div>
+
+    <div class="pick-the-perfect-breed__buttons">
+        <div [class]="colorClasses.button + ' start'" title="Начать тест">
+            <p class="button-text">
+                Поехали!
+            </p>
+        </div>
+    </div>
+</section>

@@ -1,14 +1,21 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import { BackComponent } from './back/back.component';
+import { ShowContentDirective } from 'src/app/core/directives/show-content.directive';
+import { BackButtonComponent } from './back-button/back-button.component';
 
 @NgModule({
-    imports: [ ],
+    imports: [
+        CommonModule
+    ],
     declarations: [
-        BackComponent
+        ShowContentDirective,
+        BackButtonComponent
     ],
     exports: [
-        BackComponent
+        CommonModule,
+        ShowContentDirective,
+        BackButtonComponent
     ]
 })
 export class SharedModulesModule { }

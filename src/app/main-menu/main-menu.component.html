@@ -1,5 +1,12 @@
-<section [class]="'main-menu ' + colorClasses.workspace" *ngIf="isContentLoaded">
-    <back></back>
+<section *ngIf="isContentLoaded"
+         [class]="'main-menu ' + colorClasses.workspace" 
+         [showContent]="isDogsLoaded">
+    <back-button></back-button>
+
+    <div class="dogs">
+        <img src="/src/assets/images/dogs/5.png" class="dog white-yellow" (load)="dogLoaded()">
+        <img src="/src/assets/images/dogs/7.png" class="dog skin-color" (load)="dogLoaded()">
+    </div>
 
     <div class="main-menu__headline">
         <p [class]="colorClasses.text">Главное меню</p>

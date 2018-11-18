@@ -1,12 +1,26 @@
+$white: #ffffff;
+
 :host {
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
+.dogs {
+    .white-yellow {
+        left: -1%;
+        top: calc(50% - 100px);
+    }
+
+    .skin-color {
+        right: 2%;
+        top: calc(50% - 130px);
+        width: 200px;
+    }
+}
+
 .main-menu {
-    background: url('/src/assets/images/main-menu-back.jpg');
-    background-size: cover;
+    background-color: $white;
 
     &__headline {
         display: flex;

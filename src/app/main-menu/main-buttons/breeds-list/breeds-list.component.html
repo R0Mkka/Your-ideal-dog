@@ -1,0 +1,28 @@
+<section *ngIf="isContentLoaded" 
+         [class]="'breeds-list ' + colorClasses.workspace" 
+         [showContent]="isDogsLoaded">
+    <back-button></back-button>
+
+    <div class="breeds-list__headline">
+        <p [class]="colorClasses.text">
+            Список возможных пород
+        </p>
+    </div>
+
+    <div [class]="'breeds-list__content ' + colorClasses.color">
+        <div *ngFor="let breed of breedsList" class="card" cardHover>
+            <div class="card__header">
+                Английский бульдог
+            </div>
+
+            <div class="card__photo">
+                <img src="/src/assets/images/dogs/1.png">
+            </div>
+
+            <div class="card__description">
+                Описание английского бульдога
+            </div>
+        </div>
+    </div>
+</section>
+

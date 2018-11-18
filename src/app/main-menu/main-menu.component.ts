@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 
-import { Button, main_buttons, other_buttons } from './main-menu.config';
-
 import { LoadingService } from 'src/app/core/loading/loading.service';
 import { DesignColorService } from 'src/app/core/design-color/design-color.service';
+import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 
-import { ColorClasses } from 'src/app/dataTypes/colorClasses';
+import { WorkingWindow } from 'src/app/classes/workingWindow';
+import { Button, main_buttons, other_buttons } from './main-menu.config';
 
 @Component({
     selector: 'main-menu',
@@ -13,46 +13,27 @@ import { ColorClasses } from 'src/app/dataTypes/colorClasses';
     styleUrls: ['./main-menu.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainMenuComponent implements OnInit {
+export class MainMenuComponent extends WorkingWindow implements OnInit {
     public mainButtons: Button[];
     public otherButtons: Button[];
-    public isContentLoaded: boolean;
-    public colorClasses: ColorClasses
 
     constructor(
-        private loading: LoadingService,
-        private designColor: DesignColorService,
-        private cdRef: ChangeDetectorRef) {
+        loading: LoadingService,
+        designColor: DesignColorService,
+        localStorage: LocalStorageService,
+        cdRef: ChangeDetectorRef) {
+            super(loading, designColor, localStorage, cdRef, 2);
+            
             this.mainButtons = main_buttons;
             this.otherButtons = other_buttons;
-            this.isContentLoaded = false;
-            this.colorClasses = this.designColor.getClasses();
         }
 
     ngOnInit(): void {
-        this.showContent();
+        this.initColorClasses();
+        this.showContent(1000);
     }
 
     public startLoading(): void {
         this.loading.show();
-    }
-
-    private showContent(): void {
-        if (this.loading.getCurrentStatus()) {
-            setTimeout(() => {
-                this.loading.hide();
-                this.isContentLoaded = true;
-                if (!this.cdRef['destroyed']) {
-                    this.cdRef.detectChanges();
-                }
-            }, 1000);
-
-            return;
-        }
-
-        this.isContentLoaded = true;
-        if (!this.cdRef['destroyed']) {
-            this.cdRef.detectChanges();
-        }
     }
 }

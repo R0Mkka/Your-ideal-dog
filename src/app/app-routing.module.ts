@@ -13,14 +13,6 @@ const appRoutes: Routes = [
         loadChildren: './main-menu/main-menu.module#MainMenuModule'
     },
     {
-        path: 'change-design',
-        loadChildren: './main-menu/add-features-buttons/change-design/change-design.module#ChangeDesignModule'
-    },
-    {
-        path: 'comment-the-project',
-        loadChildren: './main-menu/add-features-buttons/comment-the-project/comment-the-project.module#CommentTheProjectModule'
-    },
-    {
         path: '',
         redirectTo: 'start-window',
         pathMatch: 'full'

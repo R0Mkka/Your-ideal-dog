@@ -7,6 +7,13 @@ $red-background: rgba(205, 53, 53, .8);
     width: 100%;
 }
 
+.dogs {
+    .brown {
+        top: 60px;
+        left: calc(50% - 90px);
+    }
+}
+
 .page-not-found {
     position: relative;
     background-color: $white;
@@ -15,7 +22,7 @@ $red-background: rgba(205, 53, 53, .8);
         display: flex;
         justify-content: center;
         margin-top: 10px;
-        margin-bottom: 25px;
+        margin-bottom: 195px;
         font-size: 40px;
         font-weight: 100;
     }

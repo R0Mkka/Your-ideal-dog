@@ -8,8 +8,7 @@ body {
     padding: 0px;
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
-    background: url('/src/assets/images/background.jpg');
-    background-size: cover;
+    background-color: rgba(0, 0, 0, .8);
 }
 
 a {
@@ -24,4 +23,21 @@ a {
 p {
     margin: 0px;
     padding: 0px;
+}
+
+img::selection {
+    background: transparent;
+}
+
+.dogs {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    margin: 0px;
+    padding: 0px;
+
+    .dog {
+        position: absolute;
+    }
 }

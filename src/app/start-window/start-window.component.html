@@ -1,8 +1,10 @@
-<section [class]="'start-window ' + colorClasses.workspace">
+<section *ngIf="isContentLoaded"
+         [class]="'start-window ' + colorClasses.workspace"
+         [showContent]="isDogsLoaded">
     <div class="dogs">
-        <img src="/src/assets/images/dogs/1.png" class="dog yellow">
-        <img src="/src/assets/images/dogs/2.png" class="dog grey">
-        <img src="/src/assets/images/dogs/3.png" class="dog yellow-2">
+        <img src="/src/assets/images/dogs/1.png" class="dog yellow" (load)="dogLoaded()">
+        <img src="/src/assets/images/dogs/2.png" class="dog grey" (load)="dogLoaded()">
+        <img src="/src/assets/images/dogs/3.png" class="dog yellow-2" (load)="dogLoaded()">
     </div>
 
     <div class="start-window__headline">

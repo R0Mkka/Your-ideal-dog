@@ -13,8 +13,10 @@
 }
 
 .page-content {
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 50px;
+    width: 100%;
+    height: 100vh;
 }
