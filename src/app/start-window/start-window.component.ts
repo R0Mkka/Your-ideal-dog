@@ -1,6 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-import { LoadingService } from '../core/loading/loading.service';
+import { LoadingService } from 'src/app/core/loading/loading.service';
+import { DesignColorService } from 'src/app/core/design-color/design-color.service';
+
+import { ColorClasses } from 'src/app/dataTypes/colorClasses';
 
 @Component({
     selector: 'start-window',
@@ -9,7 +12,13 @@ import { LoadingService } from '../core/loading/loading.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StartWindowComponent {
-    constructor(private loading: LoadingService) {}
+    public colorClasses: ColorClasses;
+
+    constructor(
+        private loading: LoadingService,
+        private designColor: DesignColorService) {
+            this.colorClasses = this.designColor.getClasses();
+        }
 
     public startLoading() {
         this.loading.show();

@@ -1,4 +1,7 @@
-.workspace {
+.workspace-red,
+.workspace-green,
+.workspace-blue,
+.workspace-purple {
     position: relative;
     z-index: 1;
     display: flex;
@@ -7,20 +10,34 @@
     width: 75%;
     height: 85%;
     padding: 15px;
-    border: 5px solid $red-background;
     border-radius: 30px;
     overflow: hidden;
 }
 
-.text {
+.workspace-red { border: 5px solid $red; }
+.workspace-green { border: 5px solid $green; }
+.workspace-blue { border: 5px solid $blue; }
+.workspace-purple { border: 5px solid $purple; }
+
+.text-red, .text-green,
+.text-blue, .text-purple {
+    position: relative;
+    z-index: 1;
     padding: 15px 25px;
-    background-color: $red-background;
     border-radius: 20px;
     font-size: inherit;
     font-weight: inherit;
     color: $white;
 }
 
-.text::selection {
+.text-red { background-color: $red; }
+.text-green { background-color: $green; }
+.text-blue { background-color: $blue; }
+.text-purple { background-color: $purple; }
+
+.text-red::selection,
+.text-green::selection,
+.text-blue::selection,
+.text-purple::selection, {
     background: transparent; 
 }

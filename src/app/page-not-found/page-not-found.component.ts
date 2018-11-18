@@ -1,5 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
+
 import { LoadingService } from 'src/app/core/loading/loading.service';
+import { DesignColorService } from 'src/app/core/design-color/design-color.service';
+
+import { ColorClasses } from 'src/app/dataTypes/colorClasses';
 
 @Component({
     selector: 'page-not-found',
@@ -9,19 +13,18 @@ import { LoadingService } from 'src/app/core/loading/loading.service';
 })
 export class PageNotFoundComponent implements OnInit {
     public isContentLoaded: boolean;
+    public colorClasses: ColorClasses;
 
     constructor(
         private loading: LoadingService,
+        private designColor: DesignColorService,
         private cdRef: ChangeDetectorRef) {
             this.isContentLoaded = false;
+            this.colorClasses = this.designColor.getClasses();
         }
 
     ngOnInit(): void {
         this.showContent();
-    }
-
-    public goBack(): void {
-        history.back();
     }
 
     private showContent(): void {

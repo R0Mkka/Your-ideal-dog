@@ -1,12 +1,14 @@
-<section class="main-menu workspace" *ngIf="isContentLoaded">
+<section [class]="'main-menu ' + colorClasses.workspace" *ngIf="isContentLoaded">
+    <back></back>
+
     <div class="main-menu__headline">
-        <p class="text">Главное меню</p>
+        <p [class]="colorClasses.text">Главное меню</p>
     </div>
 
     <div class="main-menu__main-buttons">
         <ng-container *ngFor="let button of mainButtons">
             <div [routerLink]="button.route" 
-                 class="button menu-button"
+                 [class]="colorClasses.button + ' menu-button'"
                  (click)="startLoading()">
                 <p class="button-text">{{ button.name }}</p>
             </div>
@@ -16,7 +18,7 @@
     <div class="main-menu__other-features">
         <ng-container *ngFor="let button of otherButtons">
             <div [routerLink]="button.route"
-                 class="button other-features-button"
+                 [class]="colorClasses.button + ' other-features-button'"
                  (click)="startLoading()">
                 <p class="button-text">{{ button.name }}</p>
             </div>

@@ -11,22 +11,6 @@ $red-background: rgba(205, 53, 53, .8);
     position: relative;
     background-color: $white;
 
-    &__back {
-        cursor: pointer;
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        padding: 4px 12px 0px 12px;
-        border-radius: 15px;
-        background-color: $red-background;
-
-        img {
-            width: 25px;
-            height: 25px;
-            filter: invert(1);
-        }
-    }
-
     &__error-404 {
         display: flex;
         justify-content: center;

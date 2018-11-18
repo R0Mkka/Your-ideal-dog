@@ -5,9 +5,34 @@
     height: 85vh;
 }
 
+.dogs {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+
+    .dog {
+        position: absolute;
+    }
+
+    .grey {
+        top: calc(50% - 125px);
+        left: 2%;
+    }
+
+    .yellow {
+        top: calc(50% - 95px);
+        right: 8%;
+    }
+
+    .yellow-2 {
+        left: calc(50% - 160px);
+        bottom: 4%;
+    }
+}
+
 .start-window {
-    background: url('/src/assets/images/start-window-back.jpg');
-    background-size: cover;
+    background-color: #ffffff;
 
     &__headline {
         display: flex;
@@ -17,8 +42,10 @@
     }
 
     &__start-button {
+        position: relative;
         display: flex;
         justify-content: center;
+        top: -6%;
 
         .start {
             padding: 15px 110px;

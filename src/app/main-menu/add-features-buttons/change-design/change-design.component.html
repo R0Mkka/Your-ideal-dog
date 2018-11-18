@@ -1,3 +1,18 @@
-<section class="change-design workspace" *ngIf="isContentLoaded">
-    <p class="text">Change design</p>
+<section [class]="'change-design ' + colorClasses.workspace" *ngIf="isContentLoaded">
+    <back></back>
+    
+    <div class="change-design__headline">
+        <p [class]="colorClasses.text">Изменить дизайн</p>
+    </div>
+
+    <div class="change-design__choose-color">
+        <p [class]="colorClasses.text">Выбрать цвет оформления</p>
+    </div>
+
+    <div class="change-design__colors">
+        <div class="color red" (click)="setRedDesign()"></div>
+        <div class="color green" (click)="setGreenDesign()"></div>
+        <div class="color blue" (click)="setBlueDesign()"></div>
+        <div class="color purple" (click)="setPurpleDesign()"></div>
+    </div>
 </section>

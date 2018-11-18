@@ -1,0 +1,56 @@
+$purple: rgba(242, 95, 219, .9);
+$red: rgba(205, 53, 53, .9);
+$green: rgba(59, 201, 59, .9);
+$blue: rgba(59, 98, 201, .9);
+$white: #ffffff;
+
+:host {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.change-design {
+    position: relative;
+    align-items: center;
+    background-color: $white;
+
+    &__headline {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+        font-size: 40px;
+        font-weight: 100;
+    }
+
+    &__choose-color {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
+
+    &__colors {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 60%;
+
+        .color {
+            cursor: pointer;
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            border-radius: 15px;
+            transition: .3s all ease-in-out;
+        }
+
+        .color:hover {
+            transform: scale(1.1);
+        }
+
+        .red { background-color: $red; }
+        .green { background-color: $green; }
+        .blue { background-color: $blue; }
+        .purple { background-color: $purple; }
+    }
+}

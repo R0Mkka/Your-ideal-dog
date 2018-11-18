@@ -15,7 +15,6 @@ export class CommentTheProjectComponent implements OnInit {
         private loading: LoadingService,
         private cdRef: ChangeDetectorRef) {
             this.isContentLoaded = false;
-            console.log(this.loading.getCurrentStatus());
         }
 
     ngOnInit(): void {
