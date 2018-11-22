@@ -32,8 +32,4 @@ export class MainMenuComponent extends WorkingWindow implements OnInit {
         this.initColorClasses();
         this.showContent(1000);
     }
-
-    public startLoading(): void {
-        this.loading.show();
-    }
 }

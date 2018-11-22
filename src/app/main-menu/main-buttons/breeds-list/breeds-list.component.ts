@@ -1,8 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
-import { WorkingWindow } from 'src/app/classes/workingWindow';
+
 import { LoadingService } from 'src/app/core/loading/loading.service';
 import { DesignColorService } from 'src/app/core/design-color/design-color.service';
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
+
+import { WorkingWindow } from 'src/app/classes/workingWindow';
 
 @Component({
     selector: 'breeds-list',

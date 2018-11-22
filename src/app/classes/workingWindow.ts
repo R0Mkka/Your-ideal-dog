@@ -6,11 +6,10 @@ import { LocalStorageService } from "src/app/core/local-storage/local-storage.se
 
 import { ColorClasses } from 'src/app/dataTypes/colorClasses';
 
-
 export abstract class WorkingWindow {
-    public isContentLoaded: boolean;
     protected colorClasses: ColorClasses;
-    protected isDogsLoaded: boolean;
+    protected isContentLoaded: boolean;
+    private delay: number;
     private counter: number;
 
     constructor(
@@ -22,33 +21,26 @@ export abstract class WorkingWindow {
             if (!this.loading.getCurrentStatus()) this.loading.show();
 
             this.isContentLoaded = false;
-            this.isDogsLoaded = false;
             this.counter = 0;
         }
 
+    public startLoading(): void {
+        this.isContentLoaded = false;
+        this.loading.show();
+    }
+
     protected showContent(delay: number): void {
-        if (this.loading.getCurrentStatus()) {
+        this.delay = delay;
+
+        if (this.dogsCount === 0) {
             setTimeout(() => {
+                this.loading.hide();
                 this.isContentLoaded = true;
-                if (this.dogsCount === 0) {
-                    this.loading.hide();
-                    this.isDogsLoaded = true;
-                }
+
                 if (!this.cdRef['destroyed']) {
                     this.cdRef.detectChanges();
                 }
-            }, delay);
-
-            return;
-        }
-
-        this.isContentLoaded = true;
-        if (this.dogsCount === 0) {
-            this.loading.hide();
-            this.isDogsLoaded = true;
-        }
-        if (!this.cdRef['destroyed']) {
-            this.cdRef.detectChanges();
+            }, this.delay);
         }
     }
 
@@ -66,9 +58,9 @@ export abstract class WorkingWindow {
         if (++this.counter === this.dogsCount) {
             setTimeout(() => {
                 this.loading.hide();
-                this.isDogsLoaded = true;
+                this.isContentLoaded = true;
                 this.cdRef.detectChanges();
-            }, 300);
+            }, this.delay);
         }
     }
 }

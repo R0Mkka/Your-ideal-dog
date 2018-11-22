@@ -1,7 +1,5 @@
-<section *ngIf="isContentLoaded" 
-         [class]="'pick-the-perfect-breed ' + colorClasses.workspace" 
-         [showContent]="isDogsLoaded">
-    <back-button></back-button>
+<section [class]="'pick-the-perfect-breed ' + colorClasses.workspace" [showContent]="isContentLoaded">
+    <back-button (click)="startLoading()"></back-button>
 
     <div class="dogs">
         <img src="/src/assets/images/dogs/8.png" class="dog yellow" (load)="dogLoaded()">
@@ -23,7 +21,7 @@
     </div>
 
     <div class="pick-the-perfect-breed__buttons">
-        <div [class]="colorClasses.button + ' start'" title="Начать тест">
+        <div [class]="colorClasses.button + ' start'" title="Начать тест" routerLink="test">
             <p class="button-text">
                 Поехали!
             </p>

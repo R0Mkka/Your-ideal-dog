@@ -6,29 +6,29 @@ export interface Button {
 export const main_buttons: Button[] = [
     {
         name: 'Подобрать идеальную собаку',
-        route: '/main-menu/pick-the-perfect-breed'
+        route: 'pick-the-perfect-breed'
     },
     {
         name: 'Список возможных пород',
-        route: '/main-menu/breeds-list'
+        route: 'breeds-list'
     },
     {
         name: 'Избранное',
-        route: '/main-menu/favorite-breeds'
+        route: 'favorite-breeds'
     },
     {
         name: 'Таблица результатов',
-        route: '/main-menu/results-table'
+        route: 'results-table'
     }          
 ];
 
 export const other_buttons: Button[] = [
     {
-        name: 'Изменить дизайн',
-        route: '/main-menu/change-design'
+        name: 'Изменить цвет дизайна',
+        route: 'change-design'
     },
     {
         name: 'Прокомментировать проект',
-        route: '/main-menu/comment-the-project'
+        route: 'comment-the-project'
     }
 ];

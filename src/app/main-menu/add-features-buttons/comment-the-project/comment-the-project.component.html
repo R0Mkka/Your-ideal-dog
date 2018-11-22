@@ -1,3 +1,39 @@
-<section class="comment-the-project workspace" *ngIf="isContentLoaded">
-    <p class="text">Comment the project</p>
+<section [class]="'comment-the-project ' + colorClasses.workspace" [showContent]="isContentLoaded">
+    <back-button (click)="startLoading()"></back-button>
+
+    <div class="comment-the-project__headline">
+        <p [class]="colorClasses.text">
+            Прокомментировать проект
+        </p>
+    </div>
+
+    <form class="comment-the-project__form" [formGroup]="commentForm"> 
+        <input [class]="colorClasses.color"
+               formControlName="fullName" 
+               type="text" 
+               placeholder="ФИО" 
+               required>
+
+        <input [class]="colorClasses.color"
+               formControlName="country" 
+               type="text" 
+               placeholder="Страна" 
+               required>
+
+        <textarea [class]="colorClasses.color + ' styled-scroll'"
+                  formControlName="comment"
+                  cols="30" 
+                  rows="5" 
+                  placeholder="Текст комментария"
+                  required>
+        </textarea>
+
+        <div class="button-wrapper">
+            <button [class]="colorClasses.button + ' submit-button'" type="submit">
+                <p class="button-text">
+                    Отправить комментарий
+                </p>
+            </button>
+        </div>
+    </form>
 </section>

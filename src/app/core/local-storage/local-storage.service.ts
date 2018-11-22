@@ -21,7 +21,7 @@ export class LocalStorageService {
     public has(key: string): boolean {
         const storageKeys = Object.keys(this.storage);
 
-        return !!~storageKeys.indexOf(key);
+        return storageKeys.indexOf(key) !== -1;
     }
     
     public remove(key: string): void {

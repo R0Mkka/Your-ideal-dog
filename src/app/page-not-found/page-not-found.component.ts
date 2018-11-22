@@ -23,6 +23,6 @@ export class PageNotFoundComponent extends WorkingWindow implements OnInit {
 
     ngOnInit(): void {
         this.initColorClasses();
-        this.showContent(500);
+        this.showContent(600);
     }
 }

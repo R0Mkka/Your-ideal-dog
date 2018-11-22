@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { takeWhile } from 'rxjs/operators';
 
-import { LoadingService } from 'src/app/core/loading/loading.service';
 import { DesignColorService } from 'src/app/core/design-color/design-color.service';
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 
@@ -17,7 +16,6 @@ export class BackButtonComponent implements OnInit, OnDestroy {
     private alive: boolean;
 
     constructor(
-        private loading: LoadingService,
         private designColor: DesignColorService,
         private localStorage: LocalStorageService) {
             this.alive = true;
@@ -34,7 +32,6 @@ export class BackButtonComponent implements OnInit, OnDestroy {
 
     public goBack(): void {
         history.back();
-        this.loading.show();
     }
 
     private subscribeOnDesignColorChanges(): void {

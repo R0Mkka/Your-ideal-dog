@@ -1,6 +1,11 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LoadingService } from 'src/app/core/loading/loading.service';
+import { DesignColorService } from 'src/app/core/design-color/design-color.service';
+import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
+
+import { WorkingWindow } from 'src/app/classes/workingWindow';
 
 @Component({
     selector: 'comment-the-project',
@@ -8,35 +13,29 @@ import { LoadingService } from 'src/app/core/loading/loading.service';
     styleUrls: ['./comment-the-project.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentTheProjectComponent implements OnInit {
-    public isContentLoaded: boolean;
+export class CommentTheProjectComponent extends WorkingWindow implements OnInit {
+    public commentForm: FormGroup;
 
     constructor(
-        private loading: LoadingService,
-        private cdRef: ChangeDetectorRef) {
-            this.isContentLoaded = false;
+        loading: LoadingService,
+        designColor: DesignColorService,
+        localStorage: LocalStorageService,
+        cdRef: ChangeDetectorRef,
+        private formBuilder: FormBuilder) {
+            super(loading, designColor, localStorage, cdRef, 0);
+
+            this.commentForm = this.formBuilder.group({
+                fullName: ['', Validators.required],
+                country: ['', Validators.required],
+                comment: ['', Validators.required]
+            });
+
+            // this.commentForm.valueChanges.subscribe(value => console.log(value));
+            // this.commentForm.statusChanges.subscribe(status => console.log(status));
         }
 
     ngOnInit(): void {
-        this.showContent();
-    }
-
-    private showContent(): void {
-        if (this.loading.getCurrentStatus()) {
-            setTimeout(() => {
-                this.loading.hide();
-                this.isContentLoaded = true;
-                if (!this.cdRef['destroyed']) {
-                    this.cdRef.detectChanges();
-                }
-            }, 1000);
-
-            return;
-        }
-        
-        this.isContentLoaded = true;
-        if (!this.cdRef['destroyed']) {
-            this.cdRef.detectChanges();
-        }
+        this.initColorClasses();
+        this.showContent(1000);
     }
 }

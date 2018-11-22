@@ -1,7 +1,5 @@
-<section *ngIf="isContentLoaded" 
-         [class]="'breeds-list ' + colorClasses.workspace" 
-         [showContent]="isDogsLoaded">
-    <back-button></back-button>
+<section [class]="'breeds-list ' + colorClasses.workspace" [showContent]="isContentLoaded">
+    <back-button (click)="startLoading()"></back-button>
 
     <div class="breeds-list__headline">
         <p [class]="colorClasses.text">
@@ -9,7 +7,7 @@
         </p>
     </div>
 
-    <div [class]="'breeds-list__content ' + colorClasses.color">
+    <div [class]="'breeds-list__content styled-scroll ' + colorClasses.color">
         <div *ngFor="let breed of breedsList" class="card" cardHover>
             <div class="card__header">
                 Английский бульдог

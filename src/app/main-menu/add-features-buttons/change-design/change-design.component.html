@@ -1,12 +1,16 @@
-<section [class]="'change-design ' + colorClasses.workspace" *ngIf="isContentLoaded">
-    <back-button></back-button>
+<section [class]="'change-design ' + colorClasses.workspace" [showContent]="isContentLoaded">
+    <back-button (click)="startLoading()"></back-button>
     
     <div class="change-design__headline">
-        <p [class]="colorClasses.text">Изменить дизайн</p>
+        <p [class]="colorClasses.text">
+            Изменить цвет дизайна
+        </p>
     </div>
 
     <div class="change-design__choose-color">
-        <p [class]="colorClasses.text">Выбрать цвет оформления</p>
+        <p [class]="colorClasses.text">
+            Выберите цвет
+        </p>
     </div>
 
     <div class="change-design__colors">

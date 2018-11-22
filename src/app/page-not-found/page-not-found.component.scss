@@ -9,7 +9,7 @@ $red-background: rgba(205, 53, 53, .8);
 
 .dogs {
     .brown {
-        top: 60px;
+        top: 55px;
         left: calc(50% - 90px);
     }
 }
@@ -21,7 +21,6 @@ $red-background: rgba(205, 53, 53, .8);
     &__error-404 {
         display: flex;
         justify-content: center;
-        margin-top: 10px;
         margin-bottom: 195px;
         font-size: 40px;
         font-weight: 100;

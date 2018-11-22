@@ -23,7 +23,7 @@ export class StartWindowComponent extends WorkingWindow implements OnInit {
 
     ngOnInit(): void {
         this.initColorClasses();
-        this.showContent(500);
+        this.showContent(1000);
     }
 
     public startLoading(): void {

@@ -1,6 +1,4 @@
-<section *ngIf="isContentLoaded"
-         [class]="'start-window ' + colorClasses.workspace"
-         [showContent]="isDogsLoaded">
+<section [class]="'start-window ' + colorClasses.workspace" [showContent]="isContentLoaded">
     <div class="dogs">
         <img src="/src/assets/images/dogs/1.png" class="dog yellow" (load)="dogLoaded()">
         <img src="/src/assets/images/dogs/2.png" class="dog grey" (load)="dogLoaded()">
