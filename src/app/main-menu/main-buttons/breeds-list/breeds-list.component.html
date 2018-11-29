@@ -9,16 +9,10 @@
 
     <div [class]="'breeds-list__content styled-scroll ' + colorClasses.color">
         <div *ngFor="let breed of breedsList" class="card" cardHover>
-            <div class="card__header">
-                Английский бульдог
-            </div>
+            <div class="card__header"> {{breed.name}} </div>
 
             <div class="card__photo">
-                <img src="/src/assets/images/dogs/1.png">
-            </div>
-
-            <div class="card__description">
-                Описание английского бульдога
+                <img [src]="breed.image">
             </div>
         </div>
     </div>

@@ -40,14 +40,10 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     }
 
     public confirm(): boolean {
-        const message = `Вы уверены, что хотите уйти?
-                         Выбранные вами ответы не будут сохранены.`;
-                         
+        const message = 'Вы уверены, что хотите уйти? \nВыбранные вами ответы не будут сохранены.';
         const answer = confirm(message);
 
-        if (answer) {
-            return true;
-        }
+        if (answer) return true;
 
         history.pushState({}, "", '/main-menu/pick-the-perfect-breed/test');
 
