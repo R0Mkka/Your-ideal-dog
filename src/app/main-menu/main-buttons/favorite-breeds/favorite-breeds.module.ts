@@ -3,20 +3,20 @@ import { NgModule } from '@angular/core';
 import { BreedInfoModule } from 'src/app/shared-modules/breed-info/breed-info.module';
 import { CardDirectivesModule } from 'src/app/shared-modules/card-directives/card-directives.module';
 import { SharedModulesModule } from 'src/app/shared-modules/shared-modules.module';
-import { BreedsListRoutingModule } from './breeds-list-routing.module';
+import { FavoriteBreedsRoutingModule } from './favorite-breeds-routing.module';
 
-import { BreedsListComponent } from './breeds-list.component';
+import { FavoriteBreedsComponent } from './favorite-breeds.component';
 
 @NgModule({
     imports: [
         BreedInfoModule,
-        CardDirectivesModule,
+        CardDirectivesModule, 
         SharedModulesModule,
-        BreedsListRoutingModule
+        FavoriteBreedsRoutingModule
     ],
     declarations: [
-        BreedsListComponent
+        FavoriteBreedsComponent
     ],
     exports: []
 })
-export class BreedsListModule { }
+export class FavoriteBreedsModule { }

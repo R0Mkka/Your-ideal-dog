@@ -1,0 +1,56 @@
+<div class="breed-info">
+    <div class="breed-info__modal styled-scroll">
+        <img class="icon close" src="/src/assets/images/icons/close.png" title="Закрыть" (click)="emitModalClose()">
+        <img class="icon heart" [src]="isFavoriteImage" title="Добавить в избранное">
+        
+        <div class="breed-info__headline">
+            {{ breed.name }}
+        </div>
+    
+        <img [src]="breed.image" class="breed-info__image">
+
+        <div class="breed-info__specifications">
+            <div class="specification">
+                <h3>Цена: {{ breed.cost }}</h3>
+                <h3>Продолжительность жизни: {{ breed?.life }}</h3>
+            </div>
+        </div>
+    
+        <div *ngIf="isDescriptionLoaded" class="breed-info__description">
+            <div class="point">
+                <h2>История</h2>
+                <p>{{ breedDescription.history }}</p>
+            </div>
+
+            <div class="point">
+                <h2>Описание</h2>
+                <p>{{ breedDescription.description }}</p>
+            </div>
+
+            <div class="point">
+                <h2>Личность</h2>
+                <p>{{ breedDescription.personality }}</p>
+            </div>
+
+            <div class="point">
+                <h2>Обучение</h2>
+                <p>{{ breedDescription.study }}</p>
+            </div>
+
+            <div class="point">
+                <h2>Стрижка</h2>
+                <p>{{ breedDescription.haircut }}</p>
+            </div>
+
+            <div class="point">
+                <h2>Уход</h2>
+                <p>{{ breedDescription.care }}</p>
+            </div>
+
+            <div class="point">
+                <h2>Полезность</h2>
+                <p>{{ breedDescription.utility }}</p>
+            </div>
+        </div>
+    </div>
+</div>

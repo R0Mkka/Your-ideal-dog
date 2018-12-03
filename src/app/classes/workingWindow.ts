@@ -7,17 +7,17 @@ import { LocalStorageService } from "src/app/core/local-storage/local-storage.se
 import { ColorClasses } from 'src/app/dataTypes/colorClasses';
 
 export abstract class WorkingWindow {
-    protected colorClasses: ColorClasses;
-    protected isContentLoaded: boolean;
+    public colorClasses: ColorClasses;
+    public isContentLoaded: boolean;
     private delay: number;
     private counter: number;
 
     constructor(
-        protected loading: LoadingService,
-        protected designColor: DesignColorService,
-        protected localStorage: LocalStorageService,
-        protected cdRef: ChangeDetectorRef,
-        protected dogsCount: number) {
+        public loading: LoadingService,
+        public designColor: DesignColorService,
+        public localStorage: LocalStorageService,
+        public cdRef: ChangeDetectorRef,
+        public dogsCount: number) {
             if (!this.loading.getCurrentStatus()) this.loading.show();
 
             this.isContentLoaded = false;
@@ -29,7 +29,7 @@ export abstract class WorkingWindow {
         this.loading.show();
     }
 
-    protected showContent(delay: number): void {
+    public showContent(delay: number): void {
         this.delay = delay;
 
         if (this.dogsCount === 0) {
@@ -44,7 +44,7 @@ export abstract class WorkingWindow {
         }
     }
 
-    protected initColorClasses(): void {
+    public initColorClasses(): void {
         if (this.localStorage.has('designColor')) {
             this.colorClasses = JSON.parse(this.localStorage.get('designColor'));
 
@@ -54,7 +54,7 @@ export abstract class WorkingWindow {
         this.colorClasses = this.designColor.getClasses();
     }
 
-    protected dogLoaded(): void {
+    public dogLoaded(): void {
         if (++this.counter === this.dogsCount) {
             setTimeout(() => {
                 this.loading.hide();

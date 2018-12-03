@@ -1,0 +1,81 @@
+$white: #ffffff;
+
+$red: rgba(205, 53, 53, .9);
+$green: rgba(59, 201, 59, .9);
+$blue: rgba(59, 98, 201, .9);
+$purple: rgba(242, 95, 219, .9);
+
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 95%;
+}
+
+.favorite-breeds {
+    background-color: $white;
+
+    &__headline {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-weight: 100;
+    }
+
+    &__content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        margin-top: 15px;
+        height: 100%;
+        padding: 15px;
+        background-color: #eeeeee;
+        border-radius: 15px;
+        overflow-y: scroll;
+
+        .card {
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            width: calc(30% - 20px);
+            margin: 10px;
+            padding: 5px 10px;
+            background-color: $white;
+            border-radius: 5px;
+            box-shadow: 1px 1px 2px 2px rgba(88, 88, 88, 0.3);
+            transition: .2s all ease-in-out;
+
+            &__header {
+                display: flex;
+                align-items: center;
+                text-align: center;
+                height: 55px;
+                margin-bottom: 5px;
+                font-size: 20px;
+            }
+
+            &__photo {
+                img {
+                    width: 100%;
+                    border-radius: 5px;
+                }
+            }
+        }
+
+        .hovered {
+            transform: scale(1.05);
+        }
+    }
+
+    .red { border: 6px solid $red; }
+    .green { border: 6px solid $green; }
+    .blue { border: 6px solid $blue; }
+    .purple { border: 6px solid $purple; }
+}

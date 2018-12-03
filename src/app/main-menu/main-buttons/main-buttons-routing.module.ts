@@ -9,6 +9,10 @@ const mainButtonsRoutes: Routes = [
     {
         path: 'breeds-list',
         loadChildren: './breeds-list/breeds-list.module#BreedsListModule'
+    },
+    {
+        path: 'favorite-breeds',
+        loadChildren: './favorite-breeds/favorite-breeds.module#FavoriteBreedsModule'
     }
 ];
 

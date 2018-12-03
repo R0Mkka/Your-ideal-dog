@@ -49,3 +49,28 @@ app.post('/api/dog-breeds', (req, res) => {
         res.send(req.body);
     });
 });
+
+app.get('/api/breeds-descriptions/:name', (req, res) => {
+    const db = dbClient.db('dogbreedsdb');
+    const collection = db.collection('breeds-description');
+    const name = req.params['name'];
+
+    collection.find({ name }).toArray((err, result) => {
+        if (err) return console.log(err);
+
+        console.log(result);
+        res.send(result);
+    });
+});
+
+app.post('/api/breeds-descriptions', (req, res) => {
+    const db = dbClient.db('dogbreedsdb');
+    const collection = db.collection('breeds-description');
+
+    collection.insertOne(req.body, (err, result) => {
+        if (err) return console.log(err);
+
+        console.log(req.body);
+        res.send(req.body);
+    });
+});

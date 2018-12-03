@@ -1,17 +1,17 @@
 <div *ngIf="isBreedInfoShown" class="backdrop" (click)="hideBreedInfo()"></div>
 <breed-info *ngIf="isBreedInfoShown" [breed]="selectedBreed" (closeModal)="hideBreedInfo()"></breed-info>
 
-<section *ngIf="!isBreedInfoShown" [class]="'breeds-list ' + colorClasses.workspace" [showContent]="isContentLoaded">
+<section *ngIf="!isBreedInfoShown" [class]="'favorite-breeds ' + colorClasses.workspace" [showContent]="isContentLoaded">
     <back-button (click)="startLoading()"></back-button>
 
-    <div class="breeds-list__headline">
+    <div class="favorite-breeds__headline">
         <p [class]="colorClasses.text">
-            Список возможных пород
+            Избранное
         </p>
     </div>
 
-    <div [class]="'breeds-list__content styled-scroll ' + colorClasses.color">
-        <div *ngFor="let breed of breedsList" class="card" cardHover (click)="showBreedInfo(breed)">
+    <div [class]="'favorite-breeds__content styled-scroll ' + colorClasses.color">
+        <div *ngFor="let breed of favoriteBreeds" class="card" cardHover (click)="showBreedInfo(breed)">
             <div class="card__header"> {{breed.name}} </div>
 
             <div class="card__photo">
@@ -20,4 +20,3 @@
         </div>
     </div>
 </section>
-
