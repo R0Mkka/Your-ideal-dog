@@ -59,7 +59,10 @@ export abstract class WorkingWindow {
             setTimeout(() => {
                 this.loading.hide();
                 this.isContentLoaded = true;
-                this.cdRef.detectChanges();
+                
+                if (!this.cdRef['destroyed']) {
+                    this.cdRef.detectChanges();
+                }
             }, this.delay);
         }
     }

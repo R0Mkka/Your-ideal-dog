@@ -7,7 +7,7 @@
         </p>
     </div>
 
-    <form class="comment-the-project__form" [formGroup]="commentForm"> 
+    <form class="comment-the-project__form" [formGroup]="commentForm" (submit)="onSubmit(commentForm.value)"> 
         <input [class]="colorClasses.color"
                formControlName="fullName" 
                type="text" 
@@ -30,9 +30,9 @@
 
         <div class="button-wrapper">
             <button [class]="colorClasses.button + ' submit-button'" type="submit">
-                <p class="button-text">
-                    Отправить комментарий
-                </p>
+                   <p class="button-text">
+                        Отправить комментарий
+                   </p>
             </button>
         </div>
     </form>

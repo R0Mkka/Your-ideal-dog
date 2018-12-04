@@ -1,4 +1,4 @@
-export interface Breed {
+export interface IBreed {
     name: string;
     coutry: string;
     image: string;

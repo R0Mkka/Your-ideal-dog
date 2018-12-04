@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { WorkingWindow } from 'src/app/classes/workingWindow';
 import { LoadingService } from 'src/app/core/loading/loading.service';
@@ -6,7 +7,7 @@ import { DesignColorService } from 'src/app/core/design-color/design-color.servi
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 import { HttpService } from 'src/app/core/http/http.service';
 
-import { Breed } from 'src/app/dataTypes/breed';
+import { IFullBreedInfo } from 'src/app/dataTypes/fullBreedInfo';
 
 @Component({
     selector: 'favorite-breeds',
@@ -15,9 +16,11 @@ import { Breed } from 'src/app/dataTypes/breed';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoriteBreedsComponent extends WorkingWindow implements OnInit {
-    public favoriteBreeds: Breed[];
+    public favoriteBreeds: Observable<IFullBreedInfo[]>;
     public isBreedInfoShown: boolean;
-    public selectedBreed: Breed;
+    public selectedBreed: IFullBreedInfo;
+    public isEmptyList: boolean;
+    private favoriteBreedsCount: number;
 
     constructor(
         loading: LoadingService,
@@ -29,6 +32,8 @@ export class FavoriteBreedsComponent extends WorkingWindow implements OnInit {
 
             this.isBreedInfoShown = false;
             this.selectedBreed = null;
+            this.isEmptyList = false;
+            this.favoriteBreedsCount = 0;
         }
 
     ngOnInit(): void {
@@ -37,7 +42,17 @@ export class FavoriteBreedsComponent extends WorkingWindow implements OnInit {
         this.initFavoriteBreeds();
     }
 
-    public showBreedInfo(breed: Breed): void {
+    public recountFavorites(newFavorite: boolean): void {
+        if (newFavorite) {
+            this.favoriteBreedsCount++;
+        } else {
+            this.favoriteBreedsCount--;
+        }
+
+        this.isEmptyList = this.checkIsListEmpty();
+    }
+
+    public showBreedInfo(breed: IFullBreedInfo): void {
         this.selectedBreed = breed;
         this.isBreedInfoShown = true;
     }
@@ -46,9 +61,16 @@ export class FavoriteBreedsComponent extends WorkingWindow implements OnInit {
         this.isBreedInfoShown = false;
     }
 
+    public checkIsListEmpty(): boolean {
+        return this.favoriteBreedsCount === 0;
+    }
+
     private initFavoriteBreeds(): void {
-        this.http.getBreeds().subscribe((breeds: Breed[]) => {
-            this.favoriteBreeds = breeds;
+        this.favoriteBreeds = this.http.getFavoriteBreeds();
+
+        this.http.getFavoriteBreeds().subscribe((breedsInfo: IFullBreedInfo[]) => {
+            this.favoriteBreedsCount = breedsInfo.length;
+            this.isEmptyList = this.checkIsListEmpty();
         });
     }
 }

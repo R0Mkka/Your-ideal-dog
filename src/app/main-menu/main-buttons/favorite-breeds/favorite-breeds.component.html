@@ -1,5 +1,8 @@
 <div *ngIf="isBreedInfoShown" class="backdrop" (click)="hideBreedInfo()"></div>
-<breed-info *ngIf="isBreedInfoShown" [breed]="selectedBreed" (closeModal)="hideBreedInfo()"></breed-info>
+<breed-info *ngIf="isBreedInfoShown" 
+            [breed]="selectedBreed.breed"
+            (favoriteStatusChange)="recountFavorites($event)"
+            (closeModal)="hideBreedInfo()"></breed-info>
 
 <section *ngIf="!isBreedInfoShown" [class]="'favorite-breeds ' + colorClasses.workspace" [showContent]="isContentLoaded">
     <back-button (click)="startLoading()"></back-button>
@@ -11,11 +14,12 @@
     </div>
 
     <div [class]="'favorite-breeds__content styled-scroll ' + colorClasses.color">
-        <div *ngFor="let breed of favoriteBreeds" class="card" cardHover (click)="showBreedInfo(breed)">
-            <div class="card__header"> {{breed.name}} </div>
+        <div *ngIf="isEmptyList"class="empty">Список пуст.</div>
+        <div *ngFor="let info of ( favoriteBreeds | async )" class="card" cardHover (click)="showBreedInfo(info)">
+            <div class="card__header"> {{info.breed.name}} </div>
 
             <div class="card__photo">
-                <img [src]="breed.image" imageLoaded>
+                <img [src]="info.breed.image" imageLoaded>
             </div>
         </div>
     </div>

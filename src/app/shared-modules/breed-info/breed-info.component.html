@@ -1,7 +1,11 @@
 <div class="breed-info">
     <div class="breed-info__modal styled-scroll">
         <img class="icon close" src="/src/assets/images/icons/close.png" title="Закрыть" (click)="emitModalClose()">
-        <img class="icon heart" [src]="isFavoriteImage" title="Добавить в избранное">
+        <img *ngIf="isFavoriteImageLoaded" 
+             class="icon heart" 
+             [src]="favoriteImage" 
+             title="Добавить в избранное" 
+             (click)="toggleFavoriteStatus()">
         
         <div class="breed-info__headline">
             {{ breed.name }}
