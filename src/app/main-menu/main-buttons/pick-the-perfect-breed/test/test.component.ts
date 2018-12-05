@@ -16,6 +16,8 @@ import { canComponentDeactivate } from './close-test.guard';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TestComponent extends WorkingWindow implements OnInit, canComponentDeactivate {
+    public isFirstQuestion: boolean;
+    public isLastQuestion: boolean;
     public currentQuestion: Question;
     private currentQuestionIndex: number;
 
@@ -26,6 +28,8 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
         cdRef: ChangeDetectorRef) {
             super(loading, designColor, localStorage, cdRef, 0);
 
+            this.isFirstQuestion = true;
+            this.isLastQuestion = false;
             this.currentQuestionIndex = 0;
             this.currentQuestion = questions[this.currentQuestionIndex];
         }
@@ -35,21 +39,69 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
         this.showContent(1000);
     }
 
+    public setChosenAnswer(answerIndex: number): void {
+        if (questions[this.currentQuestionIndex].chosenAnswer === answerIndex) {
+            questions[this.currentQuestionIndex].chosenAnswer = -1;
+        } else {    
+            questions[this.currentQuestionIndex].chosenAnswer = answerIndex;
+        }  
+    }
+
+    public prevQuestion(): void {
+        if (this.currentQuestionIndex - 1 >= 0) {
+            this.currentQuestion = questions[--this.currentQuestionIndex];
+        }
+
+        this.checkQuestionStatus();
+    }
+
     public nextQuestion(): void {
-        this.currentQuestion = questions[++this.currentQuestionIndex];
+        if (this.currentQuestionIndex + 1 <= questions.length - 1) {
+            this.currentQuestion = questions[++this.currentQuestionIndex];
+        }
+
+        this.checkQuestionStatus();
+    }
+
+    public sendResults(): void {
+        let answersCount = 0;
+
+        questions.forEach((question: Question) => {
+            if (question.chosenAnswer !== -1) {
+                answersCount++;
+            }
+        });
+
+        if (answersCount !== questions.length) {
+            confirm(`Вы ответили только на ${answersCount}/${questions.length} вопросов.\nХотите продолжить?`);
+        } else {
+            alert('Отлично!');
+        }
     }
 
     public confirm(): boolean {
         const message = 'Вы уверены, что хотите уйти? \nВыбранные вами ответы не будут сохранены.';
         const answer = confirm(message);
 
-        if (answer) return true;
+        if (answer) {
+            this.clearAnswers();
+
+            return true;
+        }
 
         history.pushState({}, "", '/main-menu/pick-the-perfect-breed/test');
 
-        this.loading.hide();
-        this.isContentLoaded = true;
-
         return false;
+    }
+
+    private clearAnswers(): void {
+        questions.forEach((question: Question) => {
+            question.chosenAnswer = -1;
+        });
+    }
+
+    private checkQuestionStatus(): void {
+        this.isFirstQuestion = this.currentQuestionIndex === 0;
+        this.isLastQuestion = this.currentQuestionIndex === questions.length - 1;
     }
 }

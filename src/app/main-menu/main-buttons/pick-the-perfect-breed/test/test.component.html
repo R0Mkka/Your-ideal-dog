@@ -15,17 +15,42 @@
         </div>
 
         <div class="test__answers">
-            <div *ngFor="let answer of currentQuestion.answers" [class]="'answer ' + colorClasses.button">
+            <div *ngFor="let answer of currentQuestion.answers; let i = index;" 
+                 [class]="'answer ' + colorClasses.button"
+                 [class.chosen]="i === currentQuestion.chosenAnswer"
+                 (click)="setChosenAnswer(i)">
                 <p class="button-text">
                     {{answer}}
                 </p>
             </div>
         </div>
 
-        <div [class]="'test__next-question-button ' + colorClasses.button" (click)="nextQuestion()">
-            <p class="button-text">
-                Следующий вопрос
-            </p>
+        <div class="test__nav-buttons">
+            <div *ngIf="!isFirstQuestion" 
+                 [class]="'test__prev-question-button ' + colorClasses.button" 
+                 (click)="prevQuestion()">
+                <img src="/src/assets/images/icons/navigate.png">
+                <p class="button-text">
+                    Назад
+                </p>
+            </div>
+
+            <div *ngIf="!isLastQuestion" 
+                 [class]="'test__next-question-button ' + colorClasses.button" 
+                 (click)="nextQuestion()">
+                <p class="button-text">
+                    Вперед
+                </p>
+                <img src="/src/assets/images/icons/navigate.png">
+            </div>
+
+            <div *ngIf="isLastQuestion" 
+                 [class]="'test__ready-question-button ' + colorClasses.button" 
+                 (click)="sendResults()">
+                <p class="button-text">
+                    Готово!
+                </p>
+            </div>
         </div>
     </div>
 </section>

@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { tap, distinctUntilChanged, debounceTime, takeWhile } from 'rxjs/operators';
 
 import { LoadingService } from 'src/app/core/loading/loading.service';
 import { DesignColorService } from 'src/app/core/design-color/design-color.service';
@@ -15,9 +16,10 @@ import { TextComment } from 'src/app/dataTypes/textComment';
     styleUrls: ['./comment-the-project.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentTheProjectComponent extends WorkingWindow implements OnInit {
+export class CommentTheProjectComponent extends WorkingWindow implements OnInit, OnDestroy {
     public commentForm: FormGroup;
     private isValid: boolean;
+    private statusChangesSub: boolean;
 
     constructor(
         loading: LoadingService,
@@ -33,12 +35,18 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit 
                 country: ['', Validators.required],
                 comment: ['', Validators.required]
             });
+
+            this.statusChangesSub = true;
         }
 
     ngOnInit(): void {
         this.initColorClasses();
         this.showContent(1000);
         this.subscribeOnFormStatus();
+    }
+
+    ngOnDestroy(): void {
+        this.statusChangesSub = false;
     }
 
     public onSubmit(comment: TextComment): void {
@@ -58,8 +66,15 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit 
     }
 
     private subscribeOnFormStatus(): void {
-        this.commentForm.statusChanges.subscribe((status: string) => {
-            this.isValid = status === 'VALID';
-        });
+        this.commentForm.statusChanges.pipe(
+            takeWhile(() => this.statusChangesSub),
+            debounceTime(200),
+            distinctUntilChanged(),
+            tap({
+                next: (status: string) => {
+                    this.isValid = status === 'VALID';
+                }
+            })
+        ).subscribe();
     }
 }
