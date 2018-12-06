@@ -3,6 +3,7 @@ import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@
 import { LoadingService } from 'src/app/core/loading/loading.service';
 import { DesignColorService } from 'src/app/core/design-color/design-color.service';
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
+import { HttpService } from 'src/app/core/http/http.service';
 
 import { WorkingWindow } from 'src/app/classes/workingWindow';
 import { Question, questions } from './test.config';
@@ -25,7 +26,8 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
         loading: LoadingService,
         designColor: DesignColorService,
         localStorage: LocalStorageService,
-        cdRef: ChangeDetectorRef) {
+        cdRef: ChangeDetectorRef,
+        private http: HttpService) {
             super(loading, designColor, localStorage, cdRef, 0);
 
             this.isFirstQuestion = true;
@@ -73,8 +75,11 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
         });
 
         if (answersCount !== questions.length) {
-            confirm(`Вы ответили только на ${answersCount}/${questions.length} вопросов.\nХотите продолжить?`);
+            if (confirm(`Вы ответили только на ${answersCount}/${questions.length} вопросов.\nХотите продолжить?`)) {
+                this.http.getResults(questions).subscribe(value => console.log(value));
+            }
         } else {
+            this.http.getResults(questions).subscribe(value => console.log(value));
             alert('Отлично!');
         }
     }

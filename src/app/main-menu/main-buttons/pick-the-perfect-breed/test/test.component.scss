@@ -104,6 +104,10 @@ $white: #ffffff;
     left: 80px !important;
 }
 
+.chosen::before {
+    background-color: #cc1313;
+}
+
 @keyframes chooseAnimation {
     // from {
     //     transform: rotate(0deg);

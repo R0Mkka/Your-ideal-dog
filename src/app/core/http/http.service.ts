@@ -52,4 +52,8 @@ export class HttpService {
     public addNewComment(comment: TextComment): Observable<TextComment> {
         return this.http.post<TextComment>(this.commentsUrl, comment);
     }
+
+    public getResults(obj: any): Observable<any> {
+        return this.http.post<any>('http://localhost:8000/api/get-results', obj);
+    }
 }
