@@ -10,6 +10,10 @@ const testRoutes: Routes = [
         path: 'test',
         component: TestComponent,
         canDeactivate: [ CloseTestGuard ]
+    },
+    {
+        path: 'test/result',
+        loadChildren: './result/result.module#ResultModule'
     }
 ];
 

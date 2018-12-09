@@ -1,0 +1,24 @@
+$red: rgba(205, 53, 53, .9);
+$green: rgba(59, 201, 59, .9);
+$blue: rgba(59, 98, 201, .9);
+$purple: rgba(242, 95, 219, .9);
+
+.home {
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    right: 15px;
+    padding: 4px 12px 0px 12px;
+    border-radius: 15px;
+
+    img {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+.red { background-color: $red; }
+.green { background-color: $green; }
+.blue { background-color: $blue; }
+.purple { background-color: $purple; }

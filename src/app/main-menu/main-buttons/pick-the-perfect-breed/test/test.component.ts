@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LoadingService } from 'src/app/core/loading/loading.service';
 import { DesignColorService } from 'src/app/core/design-color/design-color.service';
@@ -6,7 +7,9 @@ import { LocalStorageService } from 'src/app/core/local-storage/local-storage.se
 import { HttpService } from 'src/app/core/http/http.service';
 
 import { WorkingWindow } from 'src/app/classes/workingWindow';
-import { Question, questions } from './test.config';
+import { IBreed } from 'src/app/dataTypes/breed';
+import { IQuestion } from 'src/app/dataTypes/question';
+import { questions } from './test.config';
 
 import { canComponentDeactivate } from './close-test.guard';
 
@@ -19,7 +22,7 @@ import { canComponentDeactivate } from './close-test.guard';
 export class TestComponent extends WorkingWindow implements OnInit, canComponentDeactivate {
     public isFirstQuestion: boolean;
     public isLastQuestion: boolean;
-    public currentQuestion: Question;
+    public currentQuestion: IQuestion;
     private currentQuestionIndex: number;
 
     constructor(
@@ -27,7 +30,8 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
         designColor: DesignColorService,
         localStorage: LocalStorageService,
         cdRef: ChangeDetectorRef,
-        private http: HttpService) {
+        private http: HttpService,
+        private router: Router) {
             super(loading, designColor, localStorage, cdRef, 0);
 
             this.isFirstQuestion = true;
@@ -68,7 +72,7 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     public sendResults(): void {
         let answersCount = 0;
 
-        questions.forEach((question: Question) => {
+        questions.forEach((question: IQuestion) => {
             if (question.chosenAnswer !== -1) {
                 answersCount++;
             }
@@ -76,11 +80,10 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
 
         if (answersCount !== questions.length) {
             if (confirm(`Вы ответили только на ${answersCount}/${questions.length} вопросов.\nХотите продолжить?`)) {
-                this.http.getResults(questions).subscribe(value => console.log(value));
+                this.goToResultsPage();
             }
         } else {
-            this.http.getResults(questions).subscribe(value => console.log(value));
-            alert('Отлично!');
+            this.goToResultsPage();
         }
     }
 
@@ -100,7 +103,7 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     }
 
     private clearAnswers(): void {
-        questions.forEach((question: Question) => {
+        questions.forEach((question: IQuestion) => {
             question.chosenAnswer = -1;
         });
     }
@@ -108,5 +111,18 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     private checkQuestionStatus(): void {
         this.isFirstQuestion = this.currentQuestionIndex === 0;
         this.isLastQuestion = this.currentQuestionIndex === questions.length - 1;
+    }
+
+    private goToResultsPage(): void {
+        this.http.getResults(questions).subscribe((breeds: IBreed[]) => {
+            const sortedBreeds = breeds.sort((breed1: IBreed, breed2: IBreed) => {
+                return breed2.points - breed1.points;
+            });
+            
+            sessionStorage.setItem('result', JSON.stringify(sortedBreeds.slice(0, 5)));
+
+            this.clearAnswers();
+            this.router.navigate(['/main-menu/pick-the-perfect-breed/test/result']);
+        });
     }
 }

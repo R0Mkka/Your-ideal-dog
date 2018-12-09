@@ -1,0 +1,23 @@
+<section class="result workspace" [style.borderColor]="colorClasses.colorRGBA" [showContent]="isContentLoaded">
+    <back-button></back-button>
+    <home-button></home-button>
+
+    <div class="result__headline">
+        <p class="workspace-text" [style.backgroundColor]="colorClasses.colorRGBA">
+            Ваша идеальная собака!
+        </p>
+    </div>
+
+    <div class="result__content">
+        <div class="winner-list">
+            <div *ngFor="let winner of winnerList; let i = index;" [class.first]="i === 0" class="winner">
+                <img [src]="winner.image">
+                <p>{{ winner.name }}</p>
+
+                <div class="scale" [style.backgroundColor]="colorClasses.colorRGBA" [style.maxHeight.px]="winnerScales[i] * 2">
+                    <p>{{ winnerScales[i] }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

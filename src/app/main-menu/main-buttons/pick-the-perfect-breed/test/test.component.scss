@@ -48,7 +48,6 @@ $white: #ffffff;
 
         .answer:hover {
             left: 20px;
-            transform: rotate(-2deg) scale(1.05);
         }
 
         .answer:before {
@@ -101,7 +100,7 @@ $white: #ffffff;
 
     background-color: blueviolet;
     bottom: 0px !important;
-    left: 80px !important;
+    left: 60px !important;
 }
 
 .chosen::before {
@@ -126,24 +125,24 @@ $white: #ffffff;
     
     //
 
-    // from {
-    //     left: 0px;
-    //     bottom: 0px;
-    //     background-color: rgba(0, 0, 0, .8);
-    // }
+    from {
+        left: 0px;
+        bottom: 0px;
+        background-color: rgba(0, 0, 0, .8);
+    }
 
-    // 33% {
-    //     bottom: 30px;
-    // }
+    33% {
+        bottom: 30px;
+    }
 
-    // 66% {
-    //     left: 70px;
-    // }
+    66% {
+        left: 70px;
+    }
 
-    // to {
-    //     bottom: 0px;
-    //     background-color: blueviolet;
-    // }
+    to {
+        bottom: 0px;
+        background-color: blueviolet;
+    }
 
     //
 
@@ -159,29 +158,29 @@ $white: #ffffff;
 
     //
     
-    from {
-        opacity: 1;
-        left: 0px;
-        background-color: rgba(0, 0, 0, .8);
-    }
+    // from {
+    //     opacity: 1;
+    //     left: 0px;
+    //     background-color: rgba(0, 0, 0, .8);
+    // }
 
-    33% {
-        left: 90px;
-    }
+    // 33% {
+    //     left: 90px;
+    // }
 
-    50% {
-        opacity: .2;
-    }
+    // 50% {
+    //     opacity: .2;
+    // }
 
-    66% {
-        left: 70px;
-    }
+    // 66% {
+    //     left: 70px;
+    // }
 
-    to {
-        opacity: 1;
-        left: 80px;
-        background-color: blueviolet;
-    }
+    // to {
+    //     opacity: 1;
+    //     left: 80px;
+    //     background-color: blueviolet;
+    // }
 
     //
 

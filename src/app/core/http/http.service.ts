@@ -6,6 +6,7 @@ import { IBreed } from '../../dataTypes/breed';
 import { IBreedDescription } from '../../dataTypes/breedDescription';
 import { IFullBreedInfo } from '../../dataTypes/fullBreedInfo';
 import { TextComment } from '../../dataTypes/textComment';
+import { IQuestion } from '../../dataTypes/question';
 
 @Injectable({
     providedIn: 'root'
@@ -15,12 +16,14 @@ export class HttpService {
     private breedsDescriptionsUrl: string;
     private favoriteBreedsUrl: string;
     private commentsUrl: string;
+    private resultsUrl: string;
 
     constructor(private http: HttpClient) {
         this.dogBreedsUrl = 'http://localhost:8000/api/dog-breeds';
         this.breedsDescriptionsUrl = 'http://localhost:8000/api/breeds-descriptions';
         this.favoriteBreedsUrl = 'http://localhost:8000/api/favorite-breeds';
         this.commentsUrl = 'http://localhost:8000/api/comments';
+        this.resultsUrl = 'http://localhost:8000/api/get-results';
     }
 
     public getBreeds(): Observable<IBreed[]> {
@@ -53,7 +56,7 @@ export class HttpService {
         return this.http.post<TextComment>(this.commentsUrl, comment);
     }
 
-    public getResults(obj: any): Observable<any> {
-        return this.http.post<any>('http://localhost:8000/api/get-results', obj);
+    public getResults(questions: IQuestion[]): Observable<IBreed[]> {
+        return this.http.post<IBreed[]>(this.resultsUrl, questions);
     }
 }

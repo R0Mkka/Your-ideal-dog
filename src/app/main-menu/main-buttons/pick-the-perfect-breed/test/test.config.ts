@@ -1,11 +1,6 @@
-export interface Question {
-    id: number;
-    text: string;
-    answers: string[];
-    chosenAnswer: number;
-}
+import { IQuestion } from 'src/app/dataTypes/question';
 
-export const questions: Question[] = [
+export const questions: IQuestion[] = [
     {
         id: 1,
         text: 'С какой целью вы хотите завести собаку?',
@@ -113,6 +108,16 @@ export const questions: Question[] = [
     },
     {
         id: 11,
+        text: 'Собаку с какой шерстью вы бы предпочли?',
+        answers: [
+            'Короткошерстную',
+            'Среднешерстную',
+            'Длинношерстную'
+        ],
+        chosenAnswer: -1
+    },
+    {
+        id: 12,
         text: 'Готовы ли вы к тщательному уходу за собакой?',
         answers: [
             'Да, готов(-а) делать все, что потребуется',
@@ -123,7 +128,7 @@ export const questions: Question[] = [
         chosenAnswer: -1
     },
     {
-        id: 12,
+        id: 13,
         text: 'Насколько опытным собаководом вы себя считаете?',
         answers: [
             'Опытным(-ой)',
@@ -134,7 +139,7 @@ export const questions: Question[] = [
         chosenAnswer: -1
     },
     {
-        id: 13,
+        id: 14,
         text: 'Насколько шумной должна быть ваша собака?',
         answers: [
             'Ниндзя (совсем бесшумной)',
@@ -144,12 +149,21 @@ export const questions: Question[] = [
         chosenAnswer: -1
     },
     {
-        id: 14,
+        id: 15,
         text: 'Каких размеров собаку вы бы предпочли?',
         answers: [
             'Маленькая',
             'Средняя',
             'Большая'
+        ],
+        chosenAnswer: -1
+    },
+    {
+        id: 16,
+        text: 'Есть ли у вас в семье люди сколнные к аллергическим реакциям?',
+        answers: [
+            'Да, есть',
+            'Нет'
         ],
         chosenAnswer: -1
     }

@@ -5,7 +5,8 @@ const redClasses: ColorClasses = {
     text: 'text-red',
     button: 'button-red',
     spinner: 'loading-spinner-red',
-    color: 'red'
+    color: 'red',
+    colorRGBA: 'rgba(205, 53, 53, .9)'
 }
 
 const greenClasses: ColorClasses = {
@@ -13,7 +14,8 @@ const greenClasses: ColorClasses = {
     text: 'text-green',
     button: 'button-green',
     spinner: 'loading-spinner-green',
-    color: 'green'
+    color: 'green',
+    colorRGBA: 'rgba(59, 201, 59, .9)'
 }
 
 const blueClasses: ColorClasses = {
@@ -21,7 +23,8 @@ const blueClasses: ColorClasses = {
     text: 'text-blue',
     button: 'button-blue',
     spinner: 'loading-spinner-blue',
-    color: 'blue'
+    color: 'blue',
+    colorRGBA: 'rgba(59, 98, 201, .9)'
 }
 
 const purpleClasses: ColorClasses = {
@@ -29,7 +32,8 @@ const purpleClasses: ColorClasses = {
     text: 'text-purple',
     button: 'button-purple',
     spinner: 'loading-spinner-purple',
-    color: 'purple'
+    color: 'purple',
+    colorRGBA: 'rgba(242, 95, 219, .9)'
 }
 
 export const classesSet = {

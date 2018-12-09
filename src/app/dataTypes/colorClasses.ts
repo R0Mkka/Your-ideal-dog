@@ -4,4 +4,5 @@ export interface ColorClasses {
     button: string;
     spinner: string;
     color: string;
+    colorRGBA?: string;
 }

@@ -1,0 +1,82 @@
+$white: #ffffff;
+$red: rgba(205, 53, 53, .9);
+$green: rgba(59, 201, 59, .9);
+$blue: rgba(59, 98, 201, .9);
+$purple: rgba(242, 95, 219, .9);
+
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.result {
+    align-items: center;
+    background-color: $white;
+
+    &__headline {
+        display: flex;
+        justify-content: center;
+        font-size: 30px;
+        font-weight: 100;
+    }
+
+    &__content {
+        margin-top: 30px;
+        padding: 0px 30px;
+
+        .winner-list {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            .winner {
+                position: relative;
+                width: 17%;
+                height: 480px;
+                text-align: center;
+
+                img {
+                    width: 100%;
+                }
+
+                .scale {
+                    position: absolute;
+                    bottom: 0px;
+                    left: calc(50% - 50px);
+                    width: 100px;
+                    height: 100%;
+                    background-color: black;
+                    color: $white;
+                    text-align: center;
+
+                    -webkit-animation-name: scaleAnimation;
+                    -webkit-animation-duration: 4s;
+                    -webkit-animation-iteration-count: initial;
+                    -webkit-animation-timing-function: ease-in-out;
+                
+                    animation-name: scaleAnimation;
+                    animation-duration: 4s;
+                    animation-iteration-count: initial;
+                    animation-timing-function: ease-in-out;
+                }
+
+                .red { background-color: $red; }
+                .green { background-color: $green; }
+                .blue { background-color: $blue; }
+                .purple { background-color: $purple; }
+            }
+
+            .first {
+                width: 22%;
+                font-size: 22px;
+            }
+        }
+    }
+}
+
+@keyframes scaleAnimation {
+    from { height: 0%; }
+    to { height: 100%; }
+}
