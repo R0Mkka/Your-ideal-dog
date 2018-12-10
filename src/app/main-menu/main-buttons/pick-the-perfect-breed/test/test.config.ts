@@ -1,6 +1,6 @@
 import { IQuestion } from 'src/app/dataTypes/question';
 
-export const questions: IQuestion[] = [
+export const questionList: IQuestion[] = [
     {
         id: 1,
         text: 'С какой целью вы хотите завести собаку?',
@@ -11,7 +11,8 @@ export const questions: IQuestion[] = [
             'Нужна сторожевая собака',
             'Хотелось бы охотничью собаку'
         ],
-        chosenAnswer: -1
+        chosenAnswer: [],
+        comment: '*можно выбрать до трех вариантов'
     },
     {
         id: 2,

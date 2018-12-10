@@ -1,5 +1,9 @@
+<div *ngIf="isBreedInfoShown" class="backdrop" (click)="hideBreedInfo()"></div>
+<breed-info *ngIf="isBreedInfoShown" [breed]="selectedBreed" (closeModal)="hideBreedInfo()"></breed-info>
+
 <section class="result workspace" [style.borderColor]="colorClasses.colorRGBA" [showContent]="isContentLoaded">
     <back-button></back-button>
+    <star-button></star-button>
     <home-button></home-button>
 
     <div class="result__headline">
@@ -11,11 +15,14 @@
     <div class="result__content">
         <div class="winner-list">
             <div *ngFor="let winner of winnerList; let i = index;" [class.first]="i === 0" class="winner">
-                <img [src]="winner.image">
-                <p>{{ winner.name }}</p>
-
+                <div cardHover class="card" title="Посмотреть подробную информацию" (click)="showBreedInfo(winner)">
+                    <div class="place" [style.backgroundColor]="colorClasses.colorRGBA">{{i + 1}}</div>
+                    <img [src]="winner.image">
+                    <p>{{ winner.name }}</p>
+                </div>
+                
                 <div class="scale" [style.backgroundColor]="colorClasses.colorRGBA" [style.maxHeight.px]="winnerScales[i] * 2">
-                    <p>{{ winnerScales[i] }}%</p>
+                    <p class="percentage">{{ winnerScales[i] }}%</p>
                 </div>
             </div>
         </div>

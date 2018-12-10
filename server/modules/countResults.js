@@ -42,29 +42,31 @@ function getQuetionPoints(question, dogs) {
 
 function Question_1(question, dogs) {
     dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0: 
-                if (dog.forFamily) dog.points += 10;
-                if (dog.decorative) dog.points += 3;
-                break;
-            case 1:
-                dog.points += dog.trainingSkills * 1.5;
-                dog.points += dog.agility * 0.3;
-                if (~dog.groups.indexOf('trainingSkills')) dog.points += 5;
-                break;
-            case 2:
-                dog.points += dog.security * 2;
-                if (~dog.groups.indexOf('security')) dog.points += 5;
-                break;
-            case 3:
-                if (dog.watchdog) dog.points += 10;
-                if (~dog.groups.indexOf('security')) dog.points += 3;
-                break;
-            case 4:
-                if (dog.hunter) dog.points += 10;
-                dog.points += dog.trainingSkills * 0.5;
-                break;
-        }
+        question.chosenAnswer.forEach(answerIndex => {
+            switch(answerIndex) {
+                case 0: 
+                    if (dog.forFamily) dog.points += 10;
+                    if (dog.decorative) dog.points += 3;
+                    break;
+                case 1:
+                    dog.points += dog.trainingSkills * 1.5;
+                    dog.points += dog.agility * 0.3;
+                    if (~dog.groups.indexOf('trainingSkills')) dog.points += 5;
+                    break;
+                case 2:
+                    dog.points += dog.security * 2;
+                    if (~dog.groups.indexOf('security')) dog.points += 5;
+                    break;
+                case 3:
+                    if (dog.watchdog) dog.points += 10;
+                    if (~dog.groups.indexOf('security')) dog.points += 3;
+                    break;
+                case 4:
+                    if (dog.hunter) dog.points += 10;
+                    dog.points += dog.trainingSkills * 0.5;
+                    break;
+            }
+        });
     });
 }
 

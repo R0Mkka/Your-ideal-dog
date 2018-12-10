@@ -6,6 +6,7 @@ import { TestRoutingModule } from './test/test-routing.module';
 
 import { PickThePerfectBreedComponent } from './pick-the-perfect-breed.component';
 import { TestComponent } from './test/test.component';
+import { NavigationComponent } from './test/navigation/navigation.component';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { TestComponent } from './test/test.component';
     ],
     declarations: [
         PickThePerfectBreedComponent,
-        TestComponent
+        TestComponent,
+        NavigationComponent
     ],
     exports: [ ]
 })

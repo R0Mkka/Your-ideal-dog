@@ -38,8 +38,11 @@ export class BreedsListComponent extends WorkingWindow implements OnInit {
         this.initBreedsList();
     }
 
-    public showBreedInfo(breed: IBreed): void {
+    public setSelectedBreed(breed: IBreed): void {
         this.selectedBreed = breed;
+    }
+
+    public showBreedInfo(breed: IBreed): void {
         this.isBreedInfoShown = true;
     }
 

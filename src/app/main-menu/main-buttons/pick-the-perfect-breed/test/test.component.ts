@@ -9,7 +9,7 @@ import { HttpService } from 'src/app/core/http/http.service';
 import { WorkingWindow } from 'src/app/classes/workingWindow';
 import { IBreed } from 'src/app/dataTypes/breed';
 import { IQuestion } from 'src/app/dataTypes/question';
-import { questions } from './test.config';
+import { questionList } from './test.config';
 
 import { canComponentDeactivate } from './close-test.guard';
 
@@ -23,6 +23,7 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     public isFirstQuestion: boolean;
     public isLastQuestion: boolean;
     public currentQuestion: IQuestion;
+    public questions: IQuestion[];
     private currentQuestionIndex: number;
 
     constructor(
@@ -37,7 +38,8 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
             this.isFirstQuestion = true;
             this.isLastQuestion = false;
             this.currentQuestionIndex = 0;
-            this.currentQuestion = questions[this.currentQuestionIndex];
+            this.questions = questionList;
+            this.currentQuestion = this.questions[this.currentQuestionIndex];
         }
 
     ngOnInit(): void {
@@ -46,24 +48,56 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     }
 
     public setChosenAnswer(answerIndex: number): void {
-        if (questions[this.currentQuestionIndex].chosenAnswer === answerIndex) {
-            questions[this.currentQuestionIndex].chosenAnswer = -1;
-        } else {    
-            questions[this.currentQuestionIndex].chosenAnswer = answerIndex;
-        }  
+        let chosen = this.questions[this.currentQuestionIndex].chosenAnswer;
+
+        if (chosen instanceof Array) {
+            for (let i = 0; i < chosen.length; i++) {
+                if (chosen[i] === answerIndex) {
+                    chosen.splice(i, 1);
+
+                    this.questions[this.currentQuestionIndex].chosenAnswer = chosen;
+                    return;
+                }
+            }
+
+            if (chosen.length === 3) {
+                chosen.shift();  
+            }
+
+            chosen.push(answerIndex);
+        } else {
+            chosen = (chosen === answerIndex) ? -1 : answerIndex;
+        }
+
+        this.questions[this.currentQuestionIndex].chosenAnswer = chosen;
+    }
+
+    public addClass(index: number): boolean {
+        if (this.currentQuestion.chosenAnswer instanceof Array) {
+            return Boolean(~this.currentQuestion.chosenAnswer.indexOf(index));
+        }
+
+        return index === this.currentQuestion.chosenAnswer;
+    }
+
+    public changeQuestion(questionId: number) {
+        this.currentQuestion = this.questions[questionId - 1];
+        this.currentQuestionIndex = questionId - 1;
+
+        this.checkQuestionStatus();
     }
 
     public prevQuestion(): void {
         if (this.currentQuestionIndex - 1 >= 0) {
-            this.currentQuestion = questions[--this.currentQuestionIndex];
+            this.currentQuestion = this.questions[--this.currentQuestionIndex];
         }
 
         this.checkQuestionStatus();
     }
 
     public nextQuestion(): void {
-        if (this.currentQuestionIndex + 1 <= questions.length - 1) {
-            this.currentQuestion = questions[++this.currentQuestionIndex];
+        if (this.currentQuestionIndex + 1 <= this.questions.length - 1) {
+            this.currentQuestion = this.questions[++this.currentQuestionIndex];
         }
 
         this.checkQuestionStatus();
@@ -72,14 +106,25 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     public sendResults(): void {
         let answersCount = 0;
 
-        questions.forEach((question: IQuestion) => {
-            if (question.chosenAnswer !== -1) {
-                answersCount++;
+        this.questions.forEach((question: IQuestion) => {
+            if (question.chosenAnswer instanceof Array) {
+                if (question.chosenAnswer.length > 0) {
+                    answersCount++;
+                }
+            } else {
+                if (question.chosenAnswer !== -1) {
+                    answersCount++;
+                }
             }
         });
 
-        if (answersCount !== questions.length) {
-            if (confirm(`Вы ответили только на ${answersCount}/${questions.length} вопросов.\nХотите продолжить?`)) {
+        if (answersCount !== this.questions.length) {
+            if (answersCount < 5) {
+                alert('Вы должны ответит хотя бы на 5 вопросов!');
+                return;
+            }
+
+            if (confirm(`Вы ответили только на ${answersCount}/${this.questions.length} вопросов.\nХотите продолжить?`)) {
                 this.goToResultsPage();
             }
         } else {
@@ -103,18 +148,18 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     }
 
     private clearAnswers(): void {
-        questions.forEach((question: IQuestion) => {
+        this.questions.forEach((question: IQuestion) => {
             question.chosenAnswer = -1;
         });
     }
 
     private checkQuestionStatus(): void {
         this.isFirstQuestion = this.currentQuestionIndex === 0;
-        this.isLastQuestion = this.currentQuestionIndex === questions.length - 1;
+        this.isLastQuestion = this.currentQuestionIndex === this.questions.length - 1;
     }
 
     private goToResultsPage(): void {
-        this.http.getResults(questions).subscribe((breeds: IBreed[]) => {
+        this.http.getResults(this.questions).subscribe((breeds: IBreed[]) => {
             const sortedBreeds = breeds.sort((breed1: IBreed, breed2: IBreed) => {
                 return breed2.points - breed1.points;
             });

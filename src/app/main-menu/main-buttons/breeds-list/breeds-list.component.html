@@ -11,7 +11,9 @@
     </div>
 
     <div [class]="'breeds-list__content styled-scroll ' + colorClasses.color">
-        <div *ngFor="let breed of ( breedsList | async )" class="card" cardHover (click)="showBreedInfo(breed)">
+        <div *ngFor="let breed of ( breedsList | async )" class="card" cardHover 
+             (mouseenter)="setSelectedBreed(breed)" 
+             (click)="showBreedInfo(breed)">
             <div class="card__header"> {{breed.name}} </div>
 
             <div class="card__photo">

@@ -36,16 +36,38 @@ $purple: rgba(242, 95, 219, .9);
                 width: 17%;
                 height: 480px;
                 text-align: center;
+                
+                .card {
+                    cursor: pointer;
+                    position: relative;
+                    padding: 5px;
+                    background-color: $white;
+                    box-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
+                    transition: .3s all ease-in-out;
+                    
+                    .place {
+                        position: absolute;
+                        left: -1em;
+                        top: -1em;
+                        padding: .3em .7em;
+                        border-radius: 50%;
+                        color: $white;
+                    }
 
-                img {
-                    width: 100%;
+                    img {
+                        width: 100%;
+                    }
+                }   
+
+                .hovered {
+                    transform: scale(1.1) rotate(-2deg);
                 }
 
                 .scale {
                     position: absolute;
                     bottom: 0px;
-                    left: calc(50% - 50px);
-                    width: 100px;
+                    left: calc(50% - 65px);
+                    width: 130px;
                     height: 100%;
                     background-color: black;
                     color: $white;
@@ -60,6 +82,11 @@ $purple: rgba(242, 95, 219, .9);
                     animation-duration: 4s;
                     animation-iteration-count: initial;
                     animation-timing-function: ease-in-out;
+
+                    .percentage {
+                        position: relative;
+                        top: 5%;
+                    }
                 }
 
                 .red { background-color: $red; }

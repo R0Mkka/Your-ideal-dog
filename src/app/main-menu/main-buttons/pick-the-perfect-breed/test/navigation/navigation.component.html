@@ -1,0 +1,11 @@
+<div class="navigation">
+    <div class="open" (click)="toggle()" title="Выбрать вопрос">
+        <img src="/src/assets/images/icons/navigate.png" [class.rotate-right]="isOpen" [class.rotate-left]="!isOpen">
+    </div>
+
+    <div class="questions" *ngIf="isOpen" [style.borderColor]="colorClasses.colorRGBA">
+        <div *ngFor="let question of questions" class="question-id" (click)="goToQuestion(question.id)">
+            {{ question.id }}
+        </div>
+    </div>
+</div>

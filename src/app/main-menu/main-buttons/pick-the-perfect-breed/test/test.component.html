@@ -1,6 +1,8 @@
 <section [class]="'test ' + colorClasses.workspace" [showContent]="isContentLoaded">
     <back-button></back-button>
 
+    <navigation [questions]="questions" (changeQuestion)="changeQuestion($event)"></navigation>
+
     <div class="test__headline">
         <p [class]="colorClasses.text">
             Вопрос {{currentQuestion.id}}
@@ -14,15 +16,19 @@
             </p>
         </div>
 
-        <div class="test__answers">
+        <div class="test__answers">            
             <div *ngFor="let answer of currentQuestion.answers; let i = index;" 
                  [class]="'answer ' + colorClasses.button"
-                 [class.chosen]="i === currentQuestion.chosenAnswer"
+                 [class.chosen]="addClass(i)"
                  (click)="setChosenAnswer(i)">
                 <p class="button-text">
                     {{answer}}
                 </p>
             </div>
+        </div>
+
+        <div class="test__comment">
+            {{ currentQuestion?.comment }}
         </div>
 
         <div class="test__nav-buttons">

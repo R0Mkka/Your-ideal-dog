@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 
 import { HttpService } from 'src/app/core/http/http.service';
+import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 
 import { IBreed } from 'src/app/dataTypes/breed';
 import { IBreedDescription } from 'src/app/dataTypes/breedDescription';
@@ -21,9 +22,11 @@ export class BreedInfoComponent implements OnInit {
     public isDescriptionLoaded: boolean;
     public favoriteImage: string;
     public isFavoriteImageLoaded: boolean;
+    public designColor: any;
 
     constructor(
         private http: HttpService,
+        private localStorage: LocalStorageService,
         private cdRef: ChangeDetectorRef) {
             this.closeModal = new EventEmitter<any>();
             this.favoriteStatusChange = new EventEmitter<boolean>();
@@ -34,7 +37,8 @@ export class BreedInfoComponent implements OnInit {
         }
 
     ngOnInit(): void {
-        this.getBreedDescription();
+        this.initDesignColor();
+        this.getBreedDescription('Австралийская овчарка');
         this.setFavoriteImage();
     }
 
@@ -56,7 +60,7 @@ export class BreedInfoComponent implements OnInit {
         }
     }
 
-    private getBreedDescription(): void {
+    private getBreedDescription(breedName: string): void {
         this.http.getBreedDescription('Австралийская овчарка').subscribe((value: IBreedDescription) => {
             this.breedDescription = value[0];
             this.isDescriptionLoaded = true;
@@ -89,5 +93,9 @@ export class BreedInfoComponent implements OnInit {
                 }
             }
         });
+    }
+
+    private initDesignColor(): void {
+        this.designColor = JSON.parse(this.localStorage.get('designColor'));
     }
 }

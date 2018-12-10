@@ -8,6 +8,7 @@ $white: #ffffff;
 }
 
 .test {
+    position: relative;
     justify-content: flex-start;
     background-color: $white;
 
@@ -53,6 +54,13 @@ $white: #ffffff;
         .answer:before {
             border-radius: 0px;
         }
+    }
+
+    &__comment {
+        margin-top: -10px;
+        padding: 0px;
+        font-style: italic;
+        font-size: 16px;
     }
 
     &__nav-buttons {
@@ -108,23 +116,6 @@ $white: #ffffff;
 }
 
 @keyframes chooseAnimation {
-    // from {
-    //     transform: rotate(0deg);
-    //     background-color: rgba(0, 0, 0, .8);
-    //     left: 0px;
-    // }
-
-    // 50% {
-    //     transform: rotate(-180deg);
-    // }
-
-    // to {
-    //     left: 60px;
-    //     background-color: blueviolet;
-    // }
-    
-    //
-
     from {
         left: 0px;
         bottom: 0px;
@@ -143,66 +134,4 @@ $white: #ffffff;
         bottom: 0px;
         background-color: blueviolet;
     }
-
-    //
-
-    // from {
-    //     transform: rotate(0deg);
-    //     background-color: rgba(0, 0, 0, .8);
-    // }
-
-    // to {
-    //     transform: rotate(360deg);
-    //     background-color: blueviolet;
-    // }
-
-    //
-    
-    // from {
-    //     opacity: 1;
-    //     left: 0px;
-    //     background-color: rgba(0, 0, 0, .8);
-    // }
-
-    // 33% {
-    //     left: 90px;
-    // }
-
-    // 50% {
-    //     opacity: .2;
-    // }
-
-    // 66% {
-    //     left: 70px;
-    // }
-
-    // to {
-    //     opacity: 1;
-    //     left: 80px;
-    //     background-color: blueviolet;
-    // }
-
-    //
-
-    // from {
-    //     opacity: 1;
-    //     transform: rotate(0deg);
-    //     background-color: rgba(0, 0, 0, .8);
-    //     left: 0px;
-    //     bottom: 0px;
-    // }
-
-    // 50% {
-    //     opacity: .2;
-    //     transform: rotate(-90deg);
-    //     bottom: 50px;
-    // }
-
-    // to {
-    //     opacity: 1;
-    //     transform: rotate(0deg);
-    //     left: 60px;
-    //     bottom: 0px;
-    //     background-color: blueviolet;
-    // }
 }

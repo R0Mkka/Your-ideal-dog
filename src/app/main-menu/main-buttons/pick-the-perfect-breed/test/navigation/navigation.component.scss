@@ -1,0 +1,101 @@
+$white: #ffffff;
+$black: rgba(0, 0, 0, 0.8);
+
+.navigation {
+    position: absolute;
+    top: calc(50% - 30px);
+    right: 0px;
+    
+    .open {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        width: 50px;
+        background-color: $black;
+        border-radius: 15px 0px 0px 15px;
+
+        img {
+            transform: rotate(180deg);
+        }
+
+        .rotate-right {
+            -webkit-animation-name: rotateRight;
+            -webkit-animation-duration: .6s;
+            -webkit-animation-iteration-count: initial;
+            -webkit-animation-timing-function: ease-in-out;
+
+            animation-name: rotateRight;
+            animation-duration: .6s;
+            animation-iteration-count: initial;
+            animation-timing-function: ease-in-out;
+
+            transform: rotate(720deg);
+        }
+
+        .rotate-left {
+            -webkit-animation-name: rotateLeft;
+            -webkit-animation-duration: .6s;
+            -webkit-animation-iteration-count: initial;
+            -webkit-animation-timing-function: ease-in-out;
+
+            animation-name: rotateLeft;
+            animation-duration: .6s;
+            animation-iteration-count: initial;
+            animation-timing-function: ease-in-out;
+
+            transform: rotate(180deg);
+        }
+    }
+
+    .questions {
+        position: absolute;
+        top: calc(50% - 120px);
+        right: -70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 60px;
+        height: 230px;
+        border-width: 5px;
+        border-style: solid;
+        border-radius: 0px 15px 15px 0px;
+        background-color: $white;
+        overflow-x: hidden;
+        overflow-y: scroll;
+
+        .question-id {
+            cursor: pointer;
+            padding: 10px 40px;
+            margin: 2px 0px;
+            color: $white;
+            background-color: $black;
+            transition: .3s all ease-in-out;
+        }
+
+        .question-id:hover {
+            color: $black;
+            background-color: $white;
+        }
+
+        .question-id::selection {
+            background-color: transparent;
+        }
+    }
+
+    .questions::-webkit-scrollbar { 
+        width: 0%;
+    }
+}
+
+@keyframes rotateRight {
+    from { transform: rotate(180deg) }
+    to { transform: rotate(720deg) }
+}
+
+@keyframes rotateLeft {
+    from { transform: rotate(720deg) }
+
+    to { transform: rotate(180deg) }
+}

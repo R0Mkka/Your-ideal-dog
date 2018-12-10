@@ -17,6 +17,9 @@ export class ResultComponent extends WorkingWindow implements OnInit {
     public winnerList: IBreed[];
     public winnerScales: number[];
 
+    public isBreedInfoShown: boolean;
+    public selectedBreed: IBreed;
+
     constructor(
         loading: LoadingService,
         designColor: DesignColorService,
@@ -33,10 +36,20 @@ export class ResultComponent extends WorkingWindow implements OnInit {
         this.initWinners();
     }
 
+    public showBreedInfo(breed: IBreed): void {
+        console.log(this.selectedBreed);
+        this.selectedBreed = breed;
+        this.isBreedInfoShown = true;
+    }
+
+    public hideBreedInfo(): void {
+        this.isBreedInfoShown = false;
+    }
+
     private initWinners(): void {
         this.winnerList = JSON.parse(sessionStorage.getItem('result'));
         this.winnerList.forEach((winner: IBreed, index: number) => {
-            this.winnerScales[index] = Math.round((winner.points / 140) * 100);
+            this.winnerScales[index] = Math.round((winner.points / (this.winnerList[0].points + 10)) * 100);
         });
     }
 }
