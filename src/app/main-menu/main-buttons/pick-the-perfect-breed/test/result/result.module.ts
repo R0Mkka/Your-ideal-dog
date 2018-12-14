@@ -6,7 +6,6 @@ import { SharedModulesModule } from 'src/app/shared-modules/shared-modules.modul
 import { ResultRoutingModule } from './result-routing.module';
 
 import { StarButtonComponent } from 'src/app/shared-modules/star-button/star-button.component';
-import { HomeButtonComponent } from 'src/app/shared-modules/home-button/home-button.component';
 import { ResultComponent } from './result.component';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { ResultComponent } from './result.component';
     ],
     declarations: [
         StarButtonComponent,
-        HomeButtonComponent,
         ResultComponent
     ],
     exports: []

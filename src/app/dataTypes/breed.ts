@@ -1,6 +1,6 @@
 export interface IBreed {
     name: string;
-    coutry: string;
+    country: string;
     image: string;
     trainingSkills: number;
     security: number;

@@ -13,6 +13,10 @@ const mainButtonsRoutes: Routes = [
     {
         path: 'favorite-breeds',
         loadChildren: './favorite-breeds/favorite-breeds.module#FavoriteBreedsModule'
+    },
+    {
+        path: 'results-table',
+        loadChildren: './results-table/results-table.module#ResultsTableModule'
     }
 ];
 

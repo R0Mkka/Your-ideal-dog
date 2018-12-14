@@ -4,7 +4,10 @@
     </div>
 
     <div class="questions" *ngIf="isOpen" [style.borderColor]="colorClasses.colorRGBA">
-        <div *ngFor="let question of questions" class="question-id" (click)="goToQuestion(question.id)">
+        <div *ngFor="let question of questions" 
+             class="question-id"
+             [title]="'Вопрос ' + question.id"
+             (click)="goToQuestion(question.id)">
             {{ question.id }}
         </div>
     </div>

@@ -1,3 +1,5 @@
+<alert></alert>
+
 <section [class]="'test ' + colorClasses.workspace" [showContent]="isContentLoaded">
     <back-button></back-button>
 
@@ -52,7 +54,7 @@
 
             <div *ngIf="isLastQuestion" 
                  [class]="'test__ready-question-button ' + colorClasses.button" 
-                 (click)="sendResults()">
+                 (click)="finishTest()">
                 <p class="button-text">
                     Готово!
                 </p>

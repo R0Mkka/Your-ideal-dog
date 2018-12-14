@@ -5,6 +5,7 @@ import { SharedModulesModule } from 'src/app/shared-modules/shared-modules.modul
 import { CommentTheProjectRoutingModule } from './comment-the-project-routing.module';
 
 import { CommentTheProjectComponent } from './comment-the-project.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
 
 @NgModule({
     imports: [
@@ -13,7 +14,8 @@ import { CommentTheProjectComponent } from './comment-the-project.component';
         CommentTheProjectRoutingModule
     ],
     declarations: [
-        CommentTheProjectComponent
+        CommentTheProjectComponent,
+        CommentListComponent
     ],
     exports: [ ]
 })

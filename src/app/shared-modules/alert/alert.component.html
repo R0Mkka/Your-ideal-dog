@@ -1,0 +1,18 @@
+<div [class.show-backdrop]="showAlert" class="alert-backdrop" (click)="backdropClick()"></div>
+<div [class.show-alert]="showAlert" class="alert">
+    <img [src]="image || '/src/assets/images/icons/error.svg'" class="alert__image">
+
+    <div class="alert__header">
+        {{ header }}
+    </div>
+
+    <div class="alert__message">
+        {{ message }}
+    </div>
+
+    <div class="alert__actions">
+        <div class="btn" *ngFor="let action of actions" (click)="buttonAction(action)">
+            {{ action.text }}
+        </div>
+    </div>
+</div>

@@ -3,12 +3,18 @@
 @import './assets/scss/other';
 @import './assets/scss/spinners';
 
+html {
+    margin: 0px;
+    padding: 0px;
+}
+
 body {
     margin: 0px;
     padding: 0px;
     font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, .8);
+    overflow-y: auto;
 }
 
 a { text-decoration: none; }

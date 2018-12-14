@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanDeactivate } from '@angular/router';
+import { Observable } from 'rxjs';
 
 export interface canComponentDeactivate {
-    confirm(): boolean;
+    canDeactivate(): Observable<boolean> | Promise<boolean> | boolean;
 }
 
 @Injectable()
 export class CloseTestGuard implements CanDeactivate<canComponentDeactivate> {
     canDeactivate(
-        component: canComponentDeactivate,
-        currentRoute: ActivatedRouteSnapshot,
-        currentState: RouterStateSnapshot): boolean {
-            return component.confirm();
+        component: canComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {
+            return component.canDeactivate ? component.canDeactivate() : true;
         }
 }

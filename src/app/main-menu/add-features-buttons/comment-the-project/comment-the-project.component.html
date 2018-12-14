@@ -1,3 +1,6 @@
+<alert></alert>
+<comment-list *ngIf="isCommentListShown"></comment-list>
+
 <section [class]="'comment-the-project ' + colorClasses.workspace" [showContent]="isContentLoaded">
     <back-button (click)="startLoading()"></back-button>
 
@@ -36,4 +39,8 @@
             </button>
         </div>
     </form>
+
+    <div class="open-comment-list" (click)="isCommentListShown = !isCommentListShown">
+        Open
+    </div>
 </section>

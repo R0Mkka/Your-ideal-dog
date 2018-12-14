@@ -1,0 +1,25 @@
+<section class="results-table workspace" [style.borderColor]="colorClasses.colorRGBA" [showContent]="isContentLoaded">
+    <back-button></back-button>
+
+    <div class="results-table__headline">
+        <p class="workspace-text" [style.backgroundColor]="colorClasses.colorRGBA">
+            Таблица результатов
+        </p>
+    </div>
+
+    <div class="results-table__table styled-scroll" [style.borderColor]="colorClasses.colorRGBA">
+        <div class="table__header">
+            <div class="breeds">Полученные породы</div>
+            <div class="date">Дата</div>
+            <div class="time">Время</div>
+            <div class="rating">Рейтинг</div>
+        </div>
+
+        <div *ngFor="let result of resultList" class="table__row">
+            <div class="breeds">{{ result.breeds }}</div>
+            <div class="date">{{ result.date }}</div>
+            <div class="time">{{ result.time }}</div>
+            <div class="rating">{{ result.rating }}</div>
+        </div>
+    </div>
+</section>

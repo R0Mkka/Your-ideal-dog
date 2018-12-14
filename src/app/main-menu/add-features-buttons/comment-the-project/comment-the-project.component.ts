@@ -6,9 +6,11 @@ import { LoadingService } from 'src/app/core/loading/loading.service';
 import { DesignColorService } from 'src/app/core/design-color/design-color.service';
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 import { HttpService } from 'src/app/core/http/http.service';
+import { AlertService } from 'src/app/shared-modules/alert/alert.service';
 
 import { WorkingWindow } from 'src/app/classes/workingWindow';
 import { TextComment } from 'src/app/dataTypes/textComment';
+import { Alerts } from './comment-the-project.config';
 
 @Component({
     selector: 'comment-the-project',
@@ -17,7 +19,9 @@ import { TextComment } from 'src/app/dataTypes/textComment';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentTheProjectComponent extends WorkingWindow implements OnInit, OnDestroy {
+    public alertType: any;
     public commentForm: FormGroup;
+    public isCommentListShown: boolean;
     private isValid: boolean;
     private statusChangesSub: boolean;
 
@@ -27,7 +31,8 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit,
         localStorage: LocalStorageService,
         cdRef: ChangeDetectorRef,
         private http: HttpService,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private alert: AlertService) {
             super(loading, designColor, localStorage, cdRef, 0);
 
             this.commentForm = this.formBuilder.group({
@@ -36,7 +41,9 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit,
                 comment: ['', Validators.required]
             });
 
+            this.isCommentListShown = false;
             this.statusChangesSub = true;
+            this.alertType = Alerts.error;
         }
 
     ngOnInit(): void {
@@ -59,10 +66,12 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit,
                 comment: ''
             });
 
-            alert('Комментарий успешно отправлен! Спасибо!');
+            this.alert.setSettings(Alerts.ok);
         } else {
-            alert('Все поля должны быть заполнены!');
-        }        
+            this.alert.setSettings(Alerts.error);
+        }
+
+        this.alert.show();
     }
 
     private subscribeOnFormStatus(): void {

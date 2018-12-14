@@ -169,3 +169,24 @@ export const questionList: IQuestion[] = [
         chosenAnswer: -1
     }
 ];
+
+export const Alerts = {
+    goAway: {
+        type: 'warning',
+        message: 'Вы уверены, что хотите уйти? \nВыбранные вами ответы не будут сохранены.',
+        actions: [ 'yes', 'cancel' ],
+        useAnswer: true
+    },
+    fewAnswers: {
+        type: 'error',
+        message: 'Вы должны ответить хотя бы на 5 вопросов!',
+        actions: [ 'ok' ],
+        useAnswer: false
+    },
+    notAllAnswers: {
+        type: 'warning',
+        message: '',
+        actions: [ 'yes', 'cancel' ],
+        useAnswer: true
+    }
+}

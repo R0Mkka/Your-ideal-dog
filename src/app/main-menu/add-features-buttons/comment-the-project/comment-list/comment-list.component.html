@@ -1,0 +1,23 @@
+
+
+<div class="container">
+    <section class="comment-list">
+        <div class="next" (click)="nextSet()">
+            <img src="/src/assets/images/icons/navigate.png">
+        </div>
+
+        <div class="header">
+            Комментарии
+        </div>
+    
+        <div *ngFor="let comment of currentCommentSet" class="comment">
+            <div class="fullName">{{ comment.fullName }}</div>
+            <div class="country">Страна: {{ comment.country }}</div>
+            <div class="text">Текст комментария: {{ comment.text }}</div>
+        </div>
+
+        <div class="prev" (click)="prevSet()">
+            <img src="/src/assets/images/icons/navigate.png">
+        </div>
+    </section>
+</div>

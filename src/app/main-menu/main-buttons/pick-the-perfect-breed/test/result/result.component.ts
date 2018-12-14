@@ -37,7 +37,6 @@ export class ResultComponent extends WorkingWindow implements OnInit {
     }
 
     public showBreedInfo(breed: IBreed): void {
-        console.log(this.selectedBreed);
         this.selectedBreed = breed;
         this.isBreedInfoShown = true;
     }
