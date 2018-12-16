@@ -1,8 +1,15 @@
 <alert></alert>
-<comment-list *ngIf="isCommentListShown"></comment-list>
+<comment-list *ngIf="isCommentListShown" (close)="toggleCommentList()"></comment-list>
 
 <section [class]="'comment-the-project ' + colorClasses.workspace" [showContent]="isContentLoaded">
     <back-button (click)="startLoading()"></back-button>
+
+    <div class="open-comment-list"
+         title="Показать комментарии"
+         [style.backgroundColor]="colorClasses.colorRGBA" 
+         (click)="toggleCommentList()">
+        <img src="/src/assets/images/icons/comment-list.svg">
+    </div>
 
     <div class="comment-the-project__headline">
         <p [class]="colorClasses.text">
@@ -11,25 +18,31 @@
     </div>
 
     <form class="comment-the-project__form" [formGroup]="commentForm" (submit)="onSubmit(commentForm.value)"> 
-        <input [class]="colorClasses.color"
+        <input [class]="colorClasses.color + ' input'"
+               [class.invalid-field]="!isValidFullName"
                formControlName="fullName" 
                type="text" 
-               placeholder="ФИО" 
+               placeholder="Полное имя" 
                required>
+        <div class="hint" [class.invalid]="!isValidFullName">Осталось символов: {{ currentFullNameLength }}</div>
 
-        <input [class]="colorClasses.color"
+        <input [class]="colorClasses.color + ' input'"
+               [class.invalid-field]="!isValidCountry"
                formControlName="country" 
                type="text" 
                placeholder="Страна" 
                required>
+        <div class="hint" [class.invalid]="!isValidCountry">Осталось символов: {{ currentCountryLength }}</div>
 
-        <textarea [class]="colorClasses.color + ' styled-scroll'"
+        <textarea [class]="colorClasses.color + ' styled-scroll input'"
+                  [class.invalid-field]="!isValidComment"
                   formControlName="comment"
                   cols="30" 
                   rows="5" 
                   placeholder="Текст комментария"
                   required>
         </textarea>
+        <div class="hint" [class.invalid]="!isValidComment">Осталось символов: {{ currentCommentLength }}</div>
 
         <div class="button-wrapper">
             <button [class]="colorClasses.button + ' submit-button'" type="submit">
@@ -39,8 +52,4 @@
             </button>
         </div>
     </form>
-
-    <div class="open-comment-list" (click)="isCommentListShown = !isCommentListShown">
-        Open
-    </div>
 </section>

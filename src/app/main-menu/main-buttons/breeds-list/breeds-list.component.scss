@@ -10,7 +10,7 @@ $purple: rgba(242, 95, 219, .9);
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: calc(100vw - 10%);
+    min-height: calc(100vw - 10%);
 }
 
 .breeds-list {

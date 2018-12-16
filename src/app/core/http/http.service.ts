@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { IBreed } from '../../dataTypes/breed';
 import { IBreedDescription } from '../../dataTypes/breedDescription';
 import { IFullBreedInfo } from '../../dataTypes/fullBreedInfo';
-import { TextComment } from '../../dataTypes/textComment';
+import { ITextComment } from '../../dataTypes/textComment';
 import { IQuestion } from '../../dataTypes/question';
 
 @Injectable({
@@ -52,8 +52,12 @@ export class HttpService {
         return this.http.get<IFullBreedInfo[]>(this.favoriteBreedsUrl);
     }
 
-    public addNewComment(comment: TextComment): Observable<TextComment> {
-        return this.http.post<TextComment>(this.commentsUrl, comment);
+    public addNewComment(comment: ITextComment): Observable<ITextComment> {
+        return this.http.post<ITextComment>(this.commentsUrl, comment);
+    }
+
+    public getCommentList(): Observable<ITextComment[]> {
+        return this.http.get<ITextComment[]>(this.commentsUrl);
     }
 
     public getResults(questions: IQuestion[]): Observable<IBreed[]> {

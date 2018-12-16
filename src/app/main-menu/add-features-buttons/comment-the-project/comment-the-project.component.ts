@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { tap, distinctUntilChanged, debounceTime, takeWhile } from 'rxjs/operators';
+import { tap, takeWhile } from 'rxjs/operators';
 
 import { LoadingService } from 'src/app/core/loading/loading.service';
 import { DesignColorService } from 'src/app/core/design-color/design-color.service';
@@ -9,7 +9,7 @@ import { HttpService } from 'src/app/core/http/http.service';
 import { AlertService } from 'src/app/shared-modules/alert/alert.service';
 
 import { WorkingWindow } from 'src/app/classes/workingWindow';
-import { TextComment } from 'src/app/dataTypes/textComment';
+import { ITextComment } from 'src/app/dataTypes/textComment';
 import { Alerts } from './comment-the-project.config';
 
 @Component({
@@ -22,8 +22,18 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit,
     public alertType: any;
     public commentForm: FormGroup;
     public isCommentListShown: boolean;
-    private isValid: boolean;
+    public currentFullNameLength: number;
+    public currentCountryLength: number;
+    public currentCommentLength: number;
+    public fullNameMaxLength: number;
+    public countryMaxLength: number;
+    public commentMaxLength: number;
+    public isValidFullName: boolean;
+    public isValidCountry: boolean;
+    public isValidComment: boolean;
+    private isValidForm: boolean;
     private statusChangesSub: boolean;
+    private valueChangesSub: boolean;
 
     constructor(
         loading: LoadingService,
@@ -35,29 +45,45 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit,
         private alert: AlertService) {
             super(loading, designColor, localStorage, cdRef, 0);
 
-            this.commentForm = this.formBuilder.group({
-                fullName: ['', Validators.required],
-                country: ['', Validators.required],
-                comment: ['', Validators.required]
-            });
+            this.fullNameMaxLength = 45;
+            this.countryMaxLength = 25;
+            this.commentMaxLength = 150;
+
+            this.currentFullNameLength = this.fullNameMaxLength;
+            this.currentCountryLength = this.countryMaxLength;
+            this.currentCommentLength = this.commentMaxLength;
+
+            this.isValidFullName = true;
+            this.isValidCountry = true;
+            this.isValidComment = true;
 
             this.isCommentListShown = false;
+            this.isValidForm = false;
             this.statusChangesSub = true;
+            this.valueChangesSub = true;
             this.alertType = Alerts.error;
         }
 
     ngOnInit(): void {
+        this.createForm();
         this.initColorClasses();
         this.showContent(1000);
-        this.subscribeOnFormStatus();
+        this.subscribeOnStatusChanges();
+        this.subscribeOnValueChanges();
     }
 
     ngOnDestroy(): void {
         this.statusChangesSub = false;
+        this.valueChangesSub = false;
     }
 
-    public onSubmit(comment: TextComment): void {
-        if (this.isValid) {
+    public onSubmit(comment: ITextComment): void {
+        if (this.isValidForm) {
+            const localDate = new Date();
+            
+            comment.date = localDate.toLocaleDateString();
+            comment.time = localDate.toLocaleTimeString();
+
             this.http.addNewComment(comment).subscribe();
 
             this.commentForm.patchValue({
@@ -74,14 +100,50 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit,
         this.alert.show();
     }
 
-    private subscribeOnFormStatus(): void {
+    public toggleCommentList(): void {
+        this.isCommentListShown = !this.isCommentListShown;
+    }
+
+    private createForm(): void {
+        this.commentForm = this.formBuilder.group({
+            fullName: ['', [Validators.required, Validators.maxLength(this.fullNameMaxLength)] ],
+            country: ['', [Validators.required, Validators.maxLength(this.countryMaxLength)] ],
+            comment: ['', [Validators.required, Validators.maxLength(this.commentMaxLength)] ] 
+        });
+    }
+
+    private subscribeOnStatusChanges(): void {
         this.commentForm.statusChanges.pipe(
             takeWhile(() => this.statusChangesSub),
-            debounceTime(200),
-            distinctUntilChanged(),
-            tap({
-                next: (status: string) => {
-                    this.isValid = status === 'VALID';
+            tap((status: string) => {
+                this.isValidForm = status === 'VALID';
+            })
+        ).subscribe();
+    }
+
+    private subscribeOnValueChanges(): void {
+        this.commentForm.valueChanges.pipe(
+            takeWhile(() => this.valueChangesSub),
+            tap(formValues => {
+                this.isValidFullName = formValues.fullName.length <= this.fullNameMaxLength;
+                if (this.isValidFullName) {
+                    this.currentFullNameLength = this.fullNameMaxLength - formValues.fullName.length;
+                } else {
+                    this.currentFullNameLength = 0;
+                }
+                
+                this.isValidCountry = formValues.country.length <= this.countryMaxLength;
+                if (this.isValidCountry) {
+                    this.currentCountryLength = this.countryMaxLength - formValues.country.length;
+                } else {
+                    this.currentCountryLength = 0;
+                }
+                
+                this.isValidComment = formValues.comment.length <= this.commentMaxLength;
+                if (this.isValidComment) {
+                    this.currentCommentLength = this.commentMaxLength - formValues.comment.length;
+                } else {
+                    this.currentCommentLength = 0;
                 }
             })
         ).subscribe();

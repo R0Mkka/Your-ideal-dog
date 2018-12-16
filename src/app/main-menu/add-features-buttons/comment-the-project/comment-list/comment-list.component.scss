@@ -1,14 +1,13 @@
-.alert-backdrop {
+.comment-list-backdrop {
     position: fixed;
     left: 0px;
     top: 0px;
-    z-index: 0;
+    z-index: 95;
     display: flex;
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0);
-    transition: .5s all ease-in-out;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .container {
@@ -16,59 +15,27 @@
     left: 0;
     z-index: 100;
     width: 100%;
-    margin: 30px 0px;
-
-    .prev, .next {
-        cursor: pointer;
-        position: absolute;
-        top: calc(50% - 20px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 40px;
-        height: 40px;
-        background-color: #ffffff;
-        border-radius: 50%;
-        transition: .3s all ease-in-out;
-
-        img {
-            filter: invert(1);
-        }
-    }
-
-    .prev:hover,
-    .next:hover {
-        background-color: #000000;
-
-        img {
-            filter: invert(0);
-        }
-    }
-
-    .prev {
-        left: -50px;
-
-        img {
-            transform: rotate(180deg);
-        }
-    }
-
-    .next {
-        right: -50px;
-    }
+    transition: .5s all ease-in-out;
 
     .comment-list {
         position: relative;
         left: 25%;
         bottom: 0;
         width: 50%;
-        top: 0px;
+        top: -15px;
         padding: 20px;
-        -webkit-animation: showComments 2s 1;
-        animation: showComments 2s 1;
+        -webkit-animation: showComments 1.5s 1;
+        animation: showComments 1.5s 1;
         background: #ffffff;
         box-sizing: border-box;
-    
+
+        .close {
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
         .header {
             display: flex;
             justify-content: center;
@@ -76,15 +43,70 @@
             font-size: 24px;
             font-weight: 300;
         }
+
+        .empty-list {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 5px;
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: calc(50% - 20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transition: .3s all ease-in-out;
+    
+            img {
+                filter: invert(1);
+            }
+        }
+    
+        .prev:hover,
+        .next:hover {
+            background-color: #000000;
+    
+            img {
+                filter: invert(0);
+            }
+        }
+    
+        .prev {
+            left: -50px;
+    
+            img {
+                transform: rotate(180deg);
+            }
+        }
+    
+        .next {
+            right: -50px;
+        }
     
         .comment {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
+            height: 85px;
             margin: 10px 0px;
             padding: 15px;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+            overflow-y: auto;
     
+            .fullName, .country, .text {
+                word-break: break-all;
+                white-space: normal;
+            }
+
             .fullName {
                 width: 50%;
                 text-align: left;
@@ -100,10 +122,30 @@
                 text-align: justify;
             }
         }
+
+        .navigation {
+            position: relative;
+            top: 10px;
+            display: flex;
+            justify-content: center;
+
+            img {
+                cursor: pointer;
+                width: 20px;
+                height: 20px;
+                margin: 0px 5px;
+                border: 2px solid #000000;
+                border-radius: 50%;
+                filter: invert(1);
+                transition: .2s all ease-in-out;
+            }
+
+            img:hover, .active {
+                filter: invert(0);
+            }
+        }
     }
 }
-
-
 
 @-webkit-keyframes showComments {
     0% {

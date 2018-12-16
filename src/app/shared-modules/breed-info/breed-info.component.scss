@@ -18,7 +18,7 @@
         width: 50%;
         height: 80%;
         padding: 20px;
-        border-radius: 12px;
+        border-radius: 9px;
         background-color: #ffffff;
         overflow-y: scroll;
 
@@ -75,6 +75,23 @@
             p {
                 text-indent: 1.5em;
                 text-align: justify;
+            }
+        }
+
+        .photos {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            flex-wrap: wrap;
+
+            h2 {
+                width: 100%;
+            }
+
+            img {
+                width: 40%;
+                height: auto;
+                margin-right: 10px;
             }
         }
     }

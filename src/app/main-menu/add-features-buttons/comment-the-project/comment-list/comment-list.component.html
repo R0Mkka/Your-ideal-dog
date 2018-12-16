@@ -1,23 +1,42 @@
-
+<div class="comment-list-backdrop"></div>
 
 <div class="container">
     <section class="comment-list">
-        <div class="next" (click)="nextSet()">
+        <div class="close" title="Закрыть" (click)="closeComments()">
+            <img src="/src/assets/images/icons/close.svg">
+        </div>
+
+        <div class="next" title="Вперед" (click)="nextSet()">
             <img src="/src/assets/images/icons/navigate.png">
         </div>
 
         <div class="header">
             Комментарии
         </div>
+
+        <div *ngIf="isEmptyList" class="empty-list">
+            Список комментариев пуст.
+        </div>
     
-        <div *ngFor="let comment of currentCommentSet" class="comment">
-            <div class="fullName">{{ comment.fullName }}</div>
+        <div *ngFor="let comment of currentCommentSet" 
+             class="comment styled-scroll" 
+             [title]="'Дата добавления комментария: ' + comment.date + ' ' + comment.time">
+            <div class="fullName">Имя: {{ comment.fullName }}</div>
             <div class="country">Страна: {{ comment.country }}</div>
-            <div class="text">Текст комментария: {{ comment.text }}</div>
+            <div class="text">Текст комментария: {{ comment.comment }}</div>
         </div>
 
-        <div class="prev" (click)="prevSet()">
+        <div class="prev" title="Назад" (click)="prevSet()">
             <img src="/src/assets/images/icons/navigate.png">
+        </div>
+
+        <div class="navigation">
+            <div *ngFor="let commentSet of commentSets; let id = index;" class="dot">
+                <img src="/src/assets/images/icons/dot.png"
+                     [title]="id + 1"
+                     [class.active]="currentCommentSetIndex === id"
+                     (click)="goToCommentSet(id)">
+            </div>
         </div>
     </section>
 </div>

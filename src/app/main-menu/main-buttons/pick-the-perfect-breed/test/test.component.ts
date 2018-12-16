@@ -66,7 +66,7 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
                 }
             }
 
-            if (chosen.length === 3) {
+            if (chosen.length === 2) {
                 chosen.shift();  
             }
 

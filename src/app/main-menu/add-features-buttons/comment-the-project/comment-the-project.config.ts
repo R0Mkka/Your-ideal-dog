@@ -7,7 +7,7 @@ export const Alerts = {
     },
     error: {
         type: 'error',
-        message: 'Необходимо заполнить все поля!',
+        message: 'Все поля должны быть заполнены и заполнены верно.',
         actions: [ 'ok' ],
         useAnswer: false
     }

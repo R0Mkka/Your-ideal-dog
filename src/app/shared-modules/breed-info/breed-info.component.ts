@@ -47,13 +47,13 @@ export class BreedInfoComponent implements OnInit {
     }
 
     public toggleFavoriteStatus(): void {
-        if (this.favoriteImage === '/src/assets/images/icons/favorite-grey.png') {
+        if (this.favoriteImage === '/src/assets/images/icons/favorite-black.svg') {
             this.favoriteImage = '/src/assets/images/icons/favorite-pink.png';
 
             this.http.addToFavoriteBreeds(this.breed, this.breedDescription).subscribe();
             this.favoriteStatusChange.emit(true);
         } else {
-            this.favoriteImage = '/src/assets/images/icons/favorite-grey.png';
+            this.favoriteImage = '/src/assets/images/icons/favorite-black.svg';
 
             this.http.removeFromFavoriteBreeds(this.breed.name).subscribe();
             this.favoriteStatusChange.emit(false);
@@ -85,7 +85,7 @@ export class BreedInfoComponent implements OnInit {
                 });
             },
             complete: () => {
-                this.favoriteImage = this.favoriteImage || '/src/assets/images/icons/favorite-grey.png';
+                this.favoriteImage = this.favoriteImage || '/src/assets/images/icons/favorite-black.svg';
                 this.isFavoriteImageLoaded = true;
                 
                 if (!this.cdRef['destroyed']) {

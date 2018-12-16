@@ -1,6 +1,8 @@
+<div class="backdrop" (click)="emitModalClose()"></div>
+
 <div class="breed-info">
     <div class="breed-info__modal styled-scroll">
-        <img class="icon close" src="/src/assets/images/icons/close.png" title="Закрыть" (click)="emitModalClose()">
+        <img class="icon close" src="/src/assets/images/icons/close.svg" title="Закрыть" (click)="emitModalClose()">
         <img *ngIf="isFavoriteImageLoaded" 
              class="icon heart" 
              [src]="favoriteImage" 
@@ -54,6 +56,11 @@
             <div class="point">
                 <h2>Полезность</h2>
                 <p>{{ breedDescription.utility }}</p>
+            </div>
+
+            <div *ngIf="breed.images" class="point photos">
+                <h2>Другие фото:</h2>
+                <img *ngFor="let image of breed.images" [src]="image">
             </div>
         </div>
     </div>
