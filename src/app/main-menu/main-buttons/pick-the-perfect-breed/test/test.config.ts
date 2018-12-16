@@ -166,5 +166,11 @@ export const Alerts = {
         message: '',
         actions: [ 'yes', 'cancel' ],
         useAnswer: true
+    },
+    serverIsNotWorking: {
+        type: 'error',
+        message: 'Сервер недоступен. \nПожалуйста, попробуйте подключиться позднее.',
+        actions: [ 'ok' ],
+        useAnswer: false
     }
 }

@@ -14,6 +14,7 @@ export class CommentListComponent implements OnInit {
     @Output() public close: EventEmitter<null>;
 
     public isEmptyList: boolean;
+    public isServerBroken: boolean;
     public allComments: ITextComment[];
     public commentSets: Array<ITextComment[]>;
     public currentCommentSetIndex: number;
@@ -23,6 +24,8 @@ export class CommentListComponent implements OnInit {
         private http: HttpService,
         private cdRef: ChangeDetectorRef) {
             this.close = new EventEmitter<null>();
+
+            this.isServerBroken = false;
         }
 
     ngOnInit(): void {
@@ -64,6 +67,12 @@ export class CommentListComponent implements OnInit {
             },
             error: (err) => {
                 console.error(err);
+
+                this.isServerBroken = true;
+
+                if (!this.cdRef['destroyed']) {
+                    this.cdRef.detectChanges();
+                }
             },
             complete: () => {
                 this.initCommentSets();

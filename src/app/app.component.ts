@@ -3,6 +3,7 @@ import { takeWhile } from 'rxjs/operators';
 
 import { LoadingService } from './core/loading/loading.service';
 import { DesignColorService } from './core/design-color/design-color.service';
+import { AlertService } from './shared-modules/alert/alert.service';
 
 import { ColorClasses } from './dataTypes/colorClasses';
 
@@ -21,7 +22,8 @@ export class AppComponent implements OnInit {
     constructor(
         private loading: LoadingService,
         private designColor: DesignColorService,
-        private cdRef: ChangeDetectorRef) {
+        private cdRef: ChangeDetectorRef,
+        private alert: AlertService) {
             this.isLoading = false;
             this.isImageLoaded = false;
             this.colorClasses = this.designColor.getClasses();
@@ -30,7 +32,8 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.subscribeOnLoading();
-        this.subscribeOnDesignColorChanges();    
+        this.subscribeOnDesignColorChanges();   
+        this.listenForAutoAlertClosing(); 
     }
 
     ngOnDestroy(): void {
@@ -58,6 +61,14 @@ export class AppComponent implements OnInit {
     .pipe(takeWhile(() => this.alive))
     .subscribe((classes: ColorClasses) => {
       this.colorClasses = classes;
+    });
+  }
+
+  private listenForAutoAlertClosing(): void {
+    const self = this;
+
+    window.addEventListener('popstate', () => {
+        self.alert.hide();
     });
   }
 }

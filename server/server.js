@@ -54,3 +54,8 @@ comments.getCommentsListener();
 const algorithm = require('./modules/countResults');
 
 algorithm.countResults();
+
+const resultsTable = require('./modules/results-table');
+
+resultsTable.getReultsListListener();
+resultsTable.addReultToListListener();

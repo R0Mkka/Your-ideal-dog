@@ -53,7 +53,8 @@
             </div>
 
             <div *ngIf="isLastQuestion" 
-                 [class]="'test__ready-question-button ' + colorClasses.button" 
+                 [class]="'test__ready-question-button ' + colorClasses.button"
+                 [class.disabled]="isReadyDisbled"
                  (click)="finishTest()">
                 <p class="button-text">
                     Готово!

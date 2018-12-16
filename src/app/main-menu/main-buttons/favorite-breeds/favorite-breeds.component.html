@@ -1,3 +1,4 @@
+<alert></alert>
 <breed-info *ngIf="isBreedInfoShown" 
             [breed]="selectedBreed.breed"
             (favoriteStatusChange)="recountFavorites($event)"
@@ -14,8 +15,15 @@
     </div>
 
     <div [class]="'favorite-breeds__content styled-scroll ' + colorClasses.color">
-        <div *ngIf="isEmptyList"class="empty">Список пуст.</div>
-        <div *ngFor="let info of ( favoriteBreeds | async )" class="card" cardHover (click)="showBreedInfo(info)">
+        <div *ngIf="isServerBroken" class="server-broken">
+            Сервер недоступен.
+        </div>
+
+        <div *ngIf="isEmptyList"class="empty">
+            Список пуст.
+        </div>
+
+        <div *ngFor="let info of favoriteBreeds" class="card" cardHover (click)="showBreedInfo(info)">
             <div class="card__header"> {{info.breed.name}} </div>
 
             <div class="card__photo">

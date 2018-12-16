@@ -5,7 +5,7 @@ import { CardDirectivesModule } from 'src/app/shared-modules/card-directives/car
 import { SharedModulesModule } from 'src/app/shared-modules/shared-modules.module';
 import { ResultRoutingModule } from './result-routing.module';
 
-import { StarButtonComponent } from 'src/app/shared-modules/star-button/star-button.component';
+import { RateComponent } from '../result/rate/rate.component';
 import { ResultComponent } from './result.component';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { ResultComponent } from './result.component';
         ResultRoutingModule
     ],
     declarations: [
-        StarButtonComponent,
+        RateComponent,
         ResultComponent
     ],
     exports: []

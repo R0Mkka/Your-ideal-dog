@@ -31,6 +31,7 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit,
     public isValidFullName: boolean;
     public isValidCountry: boolean;
     public isValidComment: boolean;
+    public isSubmitDisabled: boolean;
     private isValidForm: boolean;
     private statusChangesSub: boolean;
     private valueChangesSub: boolean;
@@ -57,6 +58,7 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit,
             this.isValidCountry = true;
             this.isValidComment = true;
 
+            this.isSubmitDisabled = false;
             this.isCommentListShown = false;
             this.isValidForm = false;
             this.statusChangesSub = true;
@@ -78,26 +80,54 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit,
     }
 
     public onSubmit(comment: ITextComment): void {
-        if (this.isValidForm) {
-            const localDate = new Date();
+        const localDate = new Date();
             
-            comment.date = localDate.toLocaleDateString();
-            comment.time = localDate.toLocaleTimeString();
+        comment.date = localDate.toLocaleDateString();
+        comment.time = localDate.toLocaleTimeString();
 
-            this.http.addNewComment(comment).subscribe();
+        if (!this.isSubmitDisabled) {
+            this.isSubmitDisabled = true;
 
-            this.commentForm.patchValue({
-                fullName: '',
-                country: '',
-                comment: ''
-            });
+            if (this.isValidForm) {
+                this.http.addNewComment(comment).subscribe({
+                    next: () => {
+                        this.commentForm.patchValue({
+                            fullName: '',
+                            country: '',
+                            comment: ''
+                        });
+            
+                        this.alert.setSettings(Alerts.ok);
+                    },
+                    error: (err) => {
+                        console.error(err);
+        
+                        this.alert.setSettings(Alerts.serverIsNotWorking);
+                        this.alert.show();
 
-            this.alert.setSettings(Alerts.ok);
-        } else {
-            this.alert.setSettings(Alerts.error);
+                        this.isSubmitDisabled = false;
+        
+                        if (!this.cdRef['destroyed']) {
+                            this.cdRef.detectChanges();
+                        }
+                    },
+                    complete: () => {
+                        this.alert.show();
+
+                        this.isSubmitDisabled = false;
+        
+                        if (!this.cdRef['destroyed']) {
+                            this.cdRef.detectChanges();
+                        }
+                    }
+                });
+            } else {
+                this.isSubmitDisabled = false;
+                
+                this.alert.setSettings(Alerts.error);
+                this.alert.show();
+            }
         }
-
-        this.alert.show();
     }
 
     public toggleCommentList(): void {

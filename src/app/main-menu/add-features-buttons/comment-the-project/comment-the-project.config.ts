@@ -10,5 +10,11 @@ export const Alerts = {
         message: 'Все поля должны быть заполнены и заполнены верно.',
         actions: [ 'ok' ],
         useAnswer: false
+    },
+    serverIsNotWorking: {
+        type: 'error',
+        message: 'Сервер недоступен. \nПожалуйста, попробуйте подключиться позднее.',
+        actions: [ 'ok' ],
+        useAnswer: false
     }
 }

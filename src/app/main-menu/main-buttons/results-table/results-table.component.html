@@ -1,3 +1,5 @@
+<alert></alert>
+
 <section class="results-table workspace" [style.borderColor]="colorClasses.colorRGBA" [showContent]="isContentLoaded">
     <back-button></back-button>
 
@@ -7,19 +9,35 @@
         </p>
     </div>
 
-    <div class="results-table__table styled-scroll" [style.borderColor]="colorClasses.colorRGBA">
+    <div class="results-table__table styled-scroll" 
+         [style.borderColor]="colorClasses.colorRGBA"
+         [class.broken-server]="isServerBroken">
         <div class="table__header">
             <div class="breeds">Полученные породы</div>
+            <div class="answers">Количество ответов</div>
+            <div class="test-time">Продолжительность теста</div>
             <div class="date">Дата</div>
-            <div class="time">Время</div>
             <div class="rating">Рейтинг</div>
         </div>
 
         <div *ngFor="let result of resultList" class="table__row">
-            <div class="breeds">{{ result.breeds }}</div>
-            <div class="date">{{ result.date }}</div>
-            <div class="time">{{ result.time }}</div>
-            <div class="rating">{{ result.rating }}</div>
+            <div class="breeds">
+                <img *ngFor="let breed of result.breeds" [src]="breed.image" [title]="breed.name">
+            </div>
+
+            <div class="answers">
+                {{ result.answersAmount }} / {{ questionsAmount }}
+            </div>
+
+            <div class="test-time">{{ result.testTime }}</div>
+
+            <div class="date">
+                {{ result.date }}
+                <br>
+                {{ result.time }}
+            </div>
+            
+            <div class="rating">{{ getRating(result.rating) }}</div>
         </div>
     </div>
 </section>

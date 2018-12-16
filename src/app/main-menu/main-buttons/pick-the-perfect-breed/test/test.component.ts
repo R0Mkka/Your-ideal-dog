@@ -11,6 +11,7 @@ import { AlertService } from 'src/app/shared-modules/alert/alert.service';
 import { WorkingWindow } from 'src/app/classes/workingWindow';
 import { IBreed } from 'src/app/dataTypes/breed';
 import { IQuestion } from 'src/app/dataTypes/question';
+import { ITableItem } from 'src/app/dataTypes/tableItem';
 import { questionList, Alerts } from './test.config';
 
 import { canComponentDeactivate } from './close-test.guard';
@@ -26,8 +27,10 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     public isLastQuestion: boolean;
     public currentQuestion: IQuestion;
     public questions: IQuestion[];
+    public isReadyDisbled: boolean;
     private currentQuestionIndex: number;
     private isTestReady: boolean;
+    private testStartTime: number;
 
     constructor(
         loading: LoadingService,
@@ -41,6 +44,7 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
 
             this.isFirstQuestion = true;
             this.isLastQuestion = false;
+            this.isReadyDisbled = false;
             this.currentQuestionIndex = 0;
             this.questions = questionList;
             this.currentQuestion = this.questions[this.currentQuestionIndex];
@@ -51,6 +55,7 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
         this.initColorClasses();
         this.showContent(1000);
         this.subscribeOnNavigateAway();
+        this.initTestStartTime();
     }
 
     public setChosenAnswer(answerIndex: number): void {
@@ -110,41 +115,31 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     }
 
     public finishTest(): void {
-        let answersCount = 0;
+        if (!this.isReadyDisbled) {
+            const answersAmount = this.countAnswers();
 
-        this.questions.forEach((question: IQuestion) => {
-            if (question.chosenAnswer instanceof Array) {
-                if (question.chosenAnswer.length > 0) {
-                    answersCount++;
-                }
-            } else {
-                if (question.chosenAnswer !== -1) {
-                    answersCount++;
-                }
-            }
-        });
-
-        if (answersCount !== this.questions.length) {
-            if (answersCount < 5) {
+            if (answersAmount < 5) {
                 this.alert.setSettings(Alerts.fewAnswers);
                 this.alert.show();
 
                 return;
             }
 
-            Alerts.notAllAnswers.message = `Вы ответили только на ${answersCount}/${this.questions.length} вопросов.\nХотите продолжить?`;
-            this.alert.setSettings(Alerts.notAllAnswers);
-            this.alert.show();
+            if (answersAmount !== this.questions.length) {
+                Alerts.notAllAnswers.message = `Вы ответили только на ${answersAmount}/${this.questions.length} вопросов.\nХотите продолжить?`;
+                this.alert.setSettings(Alerts.notAllAnswers);
+                this.alert.show();
 
-            const sub = this.alert.navigateAway$.subscribe((answer: boolean) => {
-                if (answer) {
-                    this.goToResultsPage();
-                }
+                const sub = this.alert.navigateAway$.subscribe((answer: boolean) => {
+                    if (answer) {
+                        this.goToResultsPage();
+                    }
 
-                sub.unsubscribe();
-            });
-        } else {
-            this.goToResultsPage();
+                    sub.unsubscribe();
+                });
+            } else {
+                this.goToResultsPage();
+            }
         }
     }
 
@@ -157,6 +152,24 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
         this.alert.show();
         
         return this.alert.navigateAway$;
+    }
+
+    private countAnswers(): number {
+        let answersAmount = 0;
+        
+        this.questions.forEach((question: IQuestion) => {
+            if (question.chosenAnswer instanceof Array) {
+                if (question.chosenAnswer.length > 0) {
+                    answersAmount++;
+                }
+            } else {
+                if (question.chosenAnswer !== -1) {
+                    answersAmount++;
+                }
+            }
+        });
+
+        return answersAmount;
     }
 
     private clearAnswers(): void {
@@ -175,23 +188,69 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
     }
 
     private goToResultsPage(): void {
+        this.isReadyDisbled = true;
         this.isTestReady = true;
 
-        this.http.getResults(this.questions).subscribe((breeds: IBreed[]) => {
-            const sortedBreeds = breeds.sort((breed1: IBreed, breed2: IBreed) => {
-                return breed2.points - breed1.points;
-            });
-            
-            sessionStorage.setItem('result', JSON.stringify(sortedBreeds.slice(0, 5)));
+        this.http.getTestResults(this.questions).subscribe({
+            next: (breeds: IBreed[]) => {
+                const filteredBreeds = this.getFilteredBreeds(breeds);
+                const sortedBreeds = this.getSortedBreeds(filteredBreeds);
 
-            this.clearAnswers();
-            this.router.navigate(['/main-menu/pick-the-perfect-breed/test/result']);
+                this.addNewResult(sortedBreeds);
+                
+                sessionStorage.setItem('result', JSON.stringify(sortedBreeds.slice(0, 5)));
+    
+                this.clearAnswers();
+                this.router.navigate(['/main-menu/pick-the-perfect-breed/test/result']);
+            },
+            error: (err) => {
+                console.error(err);
+
+                this.alert.setSettings(Alerts.serverIsNotWorking);
+                this.alert.show();
+
+                this.isReadyDisbled = false;
+            },
+            complete: () => {
+                this.isReadyDisbled = false;
+            }
         });
+    }
+
+    private getFilteredBreeds(breeds: IBreed[]): IBreed[] {
+        return breeds.filter((breed: IBreed) => {
+            return breed.points > -1;
+        });
+    }
+
+    private getSortedBreeds(breeds: IBreed[]): IBreed[] {
+        return breeds.sort((breed1: IBreed, breed2: IBreed) => {
+            return breed2.points - breed1.points;
+        });
+    }
+
+    private addNewResult(sortedBreeds: IBreed[]): void {
+        const localDate = new Date();
+
+        const newListItem: ITableItem = {
+            breeds: sortedBreeds.slice(0, 5),
+            answersAmount: this.countAnswers(),
+            testTime: performance.now() - this.testStartTime,
+            date: localDate.toLocaleDateString(),
+            time: localDate.toLocaleTimeString(),
+            rating: -1
+        }
+
+        this.http.addNewResultsTableItem(newListItem).subscribe();
     }
 
     private subscribeOnNavigateAway(): void {
         this.alert.navigateAway$.subscribe((answer: boolean) => {
             if (!answer) history.pushState({}, "", '/main-menu/pick-the-perfect-breed/test');
         });
+    }
+
+    private initTestStartTime(): void {
+        this.testStartTime = performance.now();
     }
 }

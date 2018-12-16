@@ -14,6 +14,10 @@
             Комментарии
         </div>
 
+        <div *ngIf="isServerBroken" class="server-broken">
+            Свервер недоступен.
+        </div>
+
         <div *ngIf="isEmptyList" class="empty-list">
             Список комментариев пуст.
         </div>

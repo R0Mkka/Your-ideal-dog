@@ -14,6 +14,11 @@ module.exports.countResults = function() {
                 getQuetionPoints(question, dogs);
             });
 
+            dogs.forEach(dog => {
+                console.log(dog.name);
+                console.log(dog.points);
+            });
+
             res.send(dogs);
         });
     });
@@ -35,361 +40,296 @@ function getQuetionPoints(question, dogs) {
         case 12: Question_12(question, dogs); break;
         case 13: Question_13(question, dogs); break;
         case 14: Question_14(question, dogs); break;
-        case 15: Question_15(question, dogs); break;
-        case 16: Question_16(question, dogs); break;
     }
 }
 
 function Question_1(question, dogs) {
     dogs.forEach(dog => {
-        question.chosenAnswer.forEach(answerIndex => {
-            switch(answerIndex) {
+        if (dog.points > -1) {
+            switch(question.chosenAnswer) {
                 case 0: 
-                    if (dog.forFamily) dog.points += 10;
-                    if (dog.decorative) dog.points += 3;
+                    if (dog.forFamily) dog.points += 25;
                     break;
                 case 1:
-                    dog.points += dog.trainingSkills * 1.5;
-                    dog.points += dog.agility * 0.3;
-                    if (~dog.groups.indexOf('trainingSkills')) dog.points += 5;
+                    dog.points += dog.trainingSkills * 3;
                     break;
                 case 2:
-                    dog.points += dog.security * 2;
-                    if (~dog.groups.indexOf('security')) dog.points += 5;
-                    break;
-                case 3:
-                    if (dog.watchdog) dog.points += 10;
-                    if (~dog.groups.indexOf('security')) dog.points += 3;
-                    break;
-                case 4:
-                    if (dog.hunter) dog.points += 10;
-                    dog.points += dog.trainingSkills * 0.5;
+                    dog.points += dog.security * 3;
                     break;
             }
-        });
+        }
     });
 }
 
 function Question_2(question, dogs) {
     dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0: 
-                dog.points += dog.trainingSkills * 0.5;
-                break;
-            case 1:
-                dog.points += dog.trainingSkills;
-                if (~dog.groups.indexOf('trainingSkills')) dog.points += 1;
-                break;
-            case 2:
-                dog.points += dog.trainingSkills * 1.5;
-                if (~dog.groups.indexOf('trainingSkills')) dog.points += 3;
-                break;
+        if (dog.points > -1) {
+            switch(question.chosenAnswer) {
+                case 0: 
+                    dog.points += dog.trainingSkills;
+                    break;
+                case 1:
+                    dog.points += dog.trainingSkills * 2;
+                    break;
+                case 2:
+                    dog.points += dog.trainingSkills * 3;
+                    break;
+            }
         }
     });
 }
 
 function Question_3(question, dogs) {
     dogs.forEach(dog => {
-        const splitCost = dog.cost.split('-').map(Number);
+        if (dog.points > -1) {
+            const splitCost = dog.cost.split('-').map(Number);
+            const average = (splitCost[0] + splitCost[1]) / 2;
 
-        switch(question.chosenAnswer) {
-            case 0:
-                if (splitCost[0] <= 450) dog.points += 10;
-                break;
-            case 1:
-                if (splitCost[0] <= 1000 && splitCost[1] <= 1000) {
+            switch(question.chosenAnswer) {
+                case 0:
+                    if (splitCost[0] > 450) {
+                        dog.points = -1;
+                        break;
+                    }
+                    if (average < 450) dog.points += 20;
+                    break;
+                case 1:
+                    if (splitCost[0] > 1000) {
+                        dog.points = -1;
+                        break;
+                    }
+                    if (average > 1500) {
+                        dog.points = -1;
+                        break;
+                    }
+                    if (splitCost[1] < 1000) dog.points += 20;
+                    break;
+                case 2:
+                    if (average > 2700) {
+                        dog.points = -1;
+                        break;
+                    }
+                    if (splitCost[1] < 2500) dog.points += 20;
+                    break;
+                case 3:
                     dog.points += 10;
                     break;
-                }
-                if (splitCost[0] <= 1000) dog.points += 6;
-                break;
-            case 2:
-                if (splitCost[0] <= 2500 && splitCost[1] <= 2500) {
-                    dog.points += 10;
-                    break;
-                }
-                if (splitCost[0] <= 2500) dog.points += 6;
-                break;
-            case 3:
-                dog.points += 5;
-                break;
+            }
         }
     });
 }
 
 function Question_4(question, dogs) {
-    dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                dog.points -= dog.moult * 0.5;
-                break;
-            case 1:
-                dog.points -= dog.moult * 0.3;
-                break;
-            case 2:
-                dog.points += dog.moult * 0.5;
-                break;
+    const types = [];
+
+    question.chosenAnswer.forEach(answerIndex => {
+        switch(answerIndex) {
+            case 0: types.push(0); break;
+            case 1: types.push(2); break;
+            case 2: types.push(5); break;
+            case 3: types.push(7); break;
+            case 4: types.push(8); break;
         }
     });
+
+    if (types.length > 0) {
+        dogs.forEach(dog => {
+            if (dog.points > -1) {
+                if (!~types.indexOf(dog.woolLength)) {
+                    dog.points = -1;
+                }
+            }
+        });
+    }
 }
 
 function Question_5(question, dogs) {
     dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                dog.points += dog.agility * 1.5;
-                dog.points += dog.trainingSkills * 0.5;
-                if (~dog.groups.indexOf('trainingSkills')) dog.points += 1;
-                if (~dog.groups.indexOf('agility')) dog.points += 2;
-                break;
-            case 1:
-                dog.points += dog.agility;
-                dog.points += dog.trainingSkills * 0.3;
-                if (~dog.groups.indexOf('agility')) dog.points += 1;
-                break;
-            case 2:
-                dog.points += dog.agility * 0.7;
-                break;
-            case 3:
-                dog.points -= dog.agility;
-                dog.points -= dog.trainingSkills * 0.5;
-                break;
+        if (dog.points > -1) {
+            switch(question.chosenAnswer) {
+                case 0:
+                    dog.points += dog.trainingSkills * 2;
+                    dog.points += dog.mind * 2;
+                    break;
+                case 1:
+                    dog.points += dog.trainingSkills;
+                    dog.points += dog.mind;
+                    break;
+                case 2:
+                    dog.points += 10;
+                    break;
+            }
         }
     });
 }
 
 function Question_6(question, dogs) {
-    dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                if (dog.mind < 5) {
-                    dog.points -= 10;
-                } else {
-                    dog.points += 10;
-                }
-                break;
-            case 1:
-                dog.points += dog.mind * 0.5;
-                break;
+    const types = [];
+
+    question.chosenAnswer.forEach(answerIndex => {
+        switch(answerIndex) {
+            case 0: types.push('watchdog'); break;
+            case 1: types.push('fighting'); break;
+            case 2: types.push('hunter'); break;
+            case 3: types.push('decorative'); break;
+            case 4: types.push('sled'); break;
         }
     });
+    
+    if (types.length > 0) {
+        dogs.forEach(dog => {
+            let isNeed = false;
+    
+            if (dog.points > -1) {
+                types.forEach(type => {
+                    if(dog[type]) {
+                        dog.points += 10;
+                        isNeed = true;
+                    }
+                });
+    
+                if (!isNeed) dog.points = -1;
+    
+                isNeed = false;
+            }
+        });
+    }
 }
 
 function Question_7(question, dogs) {
     dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                if (dog.trainingSkills < 5) {
-                    dog.points -= 5;
-                } else {
-                    dog.points += 10;
-                    if (~dog.groups.indexOf('trainingSkills')) dog.points += 5;
-                }
-                break;
-            case 1:
-                dog.points += dog.trainingSkills * 1.5;
-                if (~dog.groups.indexOf('trainingSkills')) dog.points += 3;
-                break;
-            case 2:
-                dog.points += dog.trainingSkills;
-                break;
-            case 3:
-                dog.points += dog.trainingSkills * 0.5
-                break;
+        if (dog.points > -1) {
+            switch(question.chosenAnswer) {
+                case 0:
+                    dog.points += dog.attitudeToChildren * 1.5;
+                    if (dog.forChildren) dog.points += 10;
+                    if (dog.fighting) dog.points -= 15;
+                    break;
+                case 1:
+                    dog.points += dog.attitudeToChildren * 0.5;
+                    if (dog.fighting) dog.points -= 15;
+                    break;
+            }
         }
     });
 }
 
 function Question_8(question, dogs) {
     dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                dog.points += dog.attitudeToChildren * 1.5;
-                if (~dog.groups.indexOf('attitudeToChildren')) dog.points += 3;
-                break;
-            case 1:
-                dog.points += dog.attitudeToChildren;
-                break;
+        if (dog.points > -1) {
+            switch(question.chosenAnswer) {
+                case 0:
+                    dog.points += 25 - dog.size;
+                    if (dog.watchdog) dog.points += 10;
+                    break;
+                case 1:
+                    dog.points += 20 - dog.size;
+                    if (dog.watchdog) dog.points += 10;
+                    break;
+                case 2:
+                    dog.points += 15 - dog.size;
+                    break;
+            }
         }
     });
 }
 
 function Question_9(question, dogs) {
     dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                dog.points += dog.size * 1.5;
-                if (dog.watchdog) dog.points += 3;
-                break;
-            case 1:
-                dog.points += dog.size * 1.5;
-                if (dog.forFamily) dog.points += 2;
-                break;
-            case 2:
-                dog.points += dog.size * 1.2;
-                if (dog.forFamily) dog.points += 1;
-                break;
-            case 3:
-                dog.points += dog.size * 0.7;
-                if (dog.decorative) dog.points += 5;
-                break;
+        if (dog.points > -1) {
+            switch(question.chosenAnswer) {
+                case 0:
+                    dog.points += 20 - dog.size;
+                    break;
+                case 1:
+                    dog.points += 12 - dog.size;
+                    break;
+                case 2:
+                    dog.points -= dog.size * 1.5;
+                    break;
+            }
         }
     });
 }
 
 function Question_10(question, dogs) {
     dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                dog.points += dog.size * 1.5;
-                break;
-            case 1:
-                dog.points += dog.size * 1.2;
-                break;
-            case 2:
-                dog.points += dog.size;
-                break;
-            case 3:
-                dog.points += dog.size * 0.7;
-                if (dog.decorative) dog.points += 3;
-                break;
+        if (dog.points > -1) {
+            switch(question.chosenAnswer) {
+                case 0:
+                    dog.points -= (10 - dog.moult) * 3;
+                    if (dog.woolLength === 8) dog.points -= 5;
+                    break;
+                case 1:
+                    dog.points -= (10 - dog.moult) * 1.5;
+                    if (dog.woolLength === 8) dog.points -= 3;
+                    break;
+                case 2:
+                    dog.points += dog.moult;
+                    break;
+            }
         }
     });
 }
 
 function Question_11(question, dogs) {
-    dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                if (dog.woolLength === 2) {
-                    dog.points += 10;
-                } else {
-                    dog.points -= 5;
-                }
-                break;
-            case 1:
-                if (dog.woolLength === 5) {
-                    dog.points += 10;
-                } else {
-                    dog.points -= 5;
-                }
-                break;
-            case 2:
-                if (dog.woolLength === 8) {
-                    dog.points += 10;
-                } else {
-                    dog.points -= 5;
-                }
-                break;
-        }
-    });
+    // :)
 }
 
 function Question_12(question, dogs) {
     dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                dog.points += dog.moult / 2;
-                break;
-            case 1:
-                dog.points -= (10 - dog.moult) * 0.5;
-                break;
-            case 2:
-                dog.points -= (10 - dog.moult) * 0.7;
-                break;
-            case 3:
-                dog.points -= (10 - dog.moult) * 1.5;
-                break;
+        if (dog.points > -1) {
+            switch(question.chosenAnswer) {
+                case 0:
+                    dog.points += dog.agility * 3;
+                    break;
+                case 1:
+                    dog.points += dog.agility * 1.5;
+                    break;
+                case 2:
+                    dog.points += (10 - dog.agility) * 3;
+                    break;
+            }
         }
     });
 }
 
 function Question_13(question, dogs) {
     dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                dog.points += 10;
-                break;
-            case 1:
-                dog.points += 7;
-                break;
-            case 2:
-                dog.points += 3;
-                break;
-            case 3:
-                dog.points -= 5;
-                break;
+        if (dog.points > -1) {
+            switch(question.chosenAnswer) {
+                case 0:
+                    if (dog.size > 4) dog.points -= 40;
+                    else dog.points += 20;
+                    break;
+                case 1:
+                    if (dog.size > 6) dog.points -= 40;
+                    if (dog.size < 4) dog.points -= 25;
+                    if (dog.size <= 6 && dog.size >= 4) dog.points += 20;
+                    break;
+                case 2:
+                    if (dog.size > 6) dog.points += 20;
+                    if (dog.size <= 6 && dog.size > 4) dog.points += 5;
+                    if (dog.size <= 4) dog.points -= 40;
+                    break;
+            }
         }
     });
 }
 
 function Question_14(question, dogs) {
     dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                dog.points += dog.mind * 1.2;
-                dog.points += (10 - dog.size) * 0.6;
-                break;
-            case 1:
-                dog.points += dog.mind;
-                dog.points += (10 - dog.size) * 0.3;
-                break;
-            case 2:
-                dog.points += 3;
-                break;
-        }
-    });
-}
-
-function Question_15(question, dogs) {
-    dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                if (dog.size > 4) {
-                    dog.points -= 10;
-                } else {
+        if (dog.points > -1) {
+            switch(question.chosenAnswer) {
+                case 0:
+                    if (dog.hypoallergenic) dog.points += 30;
+                    else dog.points -= 20;
+                    break;
+                case 1:
                     dog.points += 10;
-                }
-                break;
-            case 1:
-                if (dog.size > 6) {
-                    dog.points -= 10;
-                }
-                if (dog.size < 4) {
-                    dog.points -= 4;
-                }
-                if (dog.size <= 6 && dog.size >= 4) {
-                    dog.points += 10;
-                }
-                break;
-            case 2:
-                if (dog.size > 6) {
-                    dog.points += 10;
-                }
-                if (dog.size <= 6 && dog.size > 3) {
-                    dog.points += 4;
-                }
-                if (dog.size <= 3) {
-                    dog.points -= 10;
-                }
-                break;
-        }
-    });
-}
-
-function Question_16(question, dogs) {
-    dogs.forEach(dog => {
-        switch(question.chosenAnswer) {
-            case 0:
-                if (dog.hypoallergenic) {
-                    dog.points += 10;
-                } else {
-                    dog.points -= 5;
-                }
-                break;
-            case 1:
-                dog.points += 5;
-                break;
+                    if (dog.hypoallergenic) dog.points += 5;
+                    break;
+            }
         }
     });
 }

@@ -7,6 +7,7 @@ import { IBreedDescription } from '../../dataTypes/breedDescription';
 import { IFullBreedInfo } from '../../dataTypes/fullBreedInfo';
 import { ITextComment } from '../../dataTypes/textComment';
 import { IQuestion } from '../../dataTypes/question';
+import { ITableItem } from '../../dataTypes/tableItem';
 
 @Injectable({
     providedIn: 'root'
@@ -16,14 +17,16 @@ export class HttpService {
     private breedsDescriptionsUrl: string;
     private favoriteBreedsUrl: string;
     private commentsUrl: string;
-    private resultsUrl: string;
+    private testResultsUrl: string;
+    private resultsTableUrl: string;
 
     constructor(private http: HttpClient) {
         this.dogBreedsUrl = 'http://localhost:8000/api/dog-breeds';
         this.breedsDescriptionsUrl = 'http://localhost:8000/api/breeds-descriptions';
         this.favoriteBreedsUrl = 'http://localhost:8000/api/favorite-breeds';
         this.commentsUrl = 'http://localhost:8000/api/comments';
-        this.resultsUrl = 'http://localhost:8000/api/get-results';
+        this.testResultsUrl = 'http://localhost:8000/api/get-results';
+        this.resultsTableUrl = 'http://localhost:8000/api/results-list';
     }
 
     public getBreeds(): Observable<IBreed[]> {
@@ -60,7 +63,15 @@ export class HttpService {
         return this.http.get<ITextComment[]>(this.commentsUrl);
     }
 
-    public getResults(questions: IQuestion[]): Observable<IBreed[]> {
-        return this.http.post<IBreed[]>(this.resultsUrl, questions);
+    public getTestResults(questions: IQuestion[]): Observable<IBreed[]> {
+        return this.http.post<IBreed[]>(this.testResultsUrl, questions);
+    }
+
+    public addNewResultsTableItem(obj: ITableItem): Observable<ITableItem> {
+        return this.http.post<ITableItem>(this.resultsTableUrl, obj);
+    }
+
+    public getResultsTableList(): Observable<ITableItem[]> {
+        return this.http.get<ITableItem[]>(this.resultsTableUrl);
     }
 }

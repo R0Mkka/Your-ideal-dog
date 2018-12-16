@@ -33,10 +33,18 @@ $purple: rgba(242, 95, 219, .9);
         align-items: flex-start;
         margin-top: 15px;
         max-height: 70vh;
+        min-height: 70vh;
         padding: 15px;
         background-color: #eeeeee;
         border-radius: 15px;
         overflow-y: scroll;
+
+        .server-broken {
+            position: relative;
+            right: -10px;
+            font-size: 20px;
+            font-weight: 300;
+        }
 
         .card {
             cursor: pointer;

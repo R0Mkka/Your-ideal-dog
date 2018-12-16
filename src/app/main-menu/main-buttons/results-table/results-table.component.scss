@@ -23,7 +23,7 @@
         flex-wrap: wrap;
         align-items: flex-start;
         margin-top: 15px;
-        width: 90%;
+        width: 95%;
         max-height: 70vh;
         padding: 15px;
         background-color: #eeeeee;
@@ -50,14 +50,32 @@
             text-align: left;
         }
 
-        .breeds, .date, .time, .rating {
-            padding-bottom: 10px;
+        .breeds, .answers, .test-time, .date, .rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5px 15px 5px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+            text-align: center;
+            word-break: break-all;
+            white-space: normal;
         }
 
-        .breeds { width: 60%; }
-        .date { width: 15%; }
-        .time { width: 15%; }
+        .breeds { 
+            width: 40%;
+
+            img {
+                width: 19%;
+                margin: 0px 2px;
+            }
+        }
+        .answers { width: 18%; }
+        .test-time { width: 20%; }
+        .date { width: 12% }
         .rating { width: 10%; }
+    }
+
+    .broken-server {
+        min-height: 70vh;
     }
 }

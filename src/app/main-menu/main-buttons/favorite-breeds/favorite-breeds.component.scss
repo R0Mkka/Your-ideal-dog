@@ -43,6 +43,13 @@ $purple: rgba(242, 95, 219, .9);
             font-size: 25px;
             font-weight: 300;
         }
+
+        .server-broken {
+            position: relative;
+            right: -10px;
+            font-size: 20px;
+            font-weight: 300;
+        }
     
         .card {
             cursor: pointer;

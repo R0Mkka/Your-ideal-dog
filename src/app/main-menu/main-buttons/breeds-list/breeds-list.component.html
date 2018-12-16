@@ -1,3 +1,4 @@
+<alert></alert>
 <breed-info *ngIf="isBreedInfoShown" [breed]="selectedBreed" (closeModal)="hideBreedInfo()"></breed-info>
 
 <section [class]="'breeds-list ' + colorClasses.workspace" [showContent]="isContentLoaded">
@@ -10,7 +11,11 @@
     </div>
 
     <div [class]="'breeds-list__content styled-scroll ' + colorClasses.color">
-        <div *ngFor="let breed of ( breedsList | async )" class="card" cardHover 
+        <div *ngIf="isServerBroken" class="server-broken">
+            Сервер недоступен.
+        </div>
+
+        <div *ngFor="let breed of breedsList" class="card" cardHover 
              (mouseenter)="setSelectedBreed(breed)" 
              (click)="showBreedInfo(breed)">
             <div class="card__header"> {{breed.name}} </div>
