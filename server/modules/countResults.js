@@ -14,11 +14,6 @@ module.exports.countResults = function() {
                 getQuetionPoints(question, dogs);
             });
 
-            dogs.forEach(dog => {
-                console.log(dog.name);
-                console.log(dog.points);
-            });
-
             res.send(dogs);
         });
     });

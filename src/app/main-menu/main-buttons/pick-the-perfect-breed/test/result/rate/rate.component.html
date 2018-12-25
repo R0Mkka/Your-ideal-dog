@@ -1,7 +1,13 @@
-<div [class]="'star ' + colorClasses.color" title="Оценить" (click)="star()">
+<div [class]="'star ' + colorClasses.color" title="Оценить" (click)="toggleRateModal()">
     <img src="/src/assets/images/icons/star.png">
 </div>
 
-<div class="rate-block">
-    
+<div *ngIf="isRateModalShown" class="rate-modal">
+    <p class="rate-modal__headline">Поставьте оценку от 1 до 5</p>
+
+    <stars (ratingChanged)="onRatingChange($event)"></stars>
+
+    <div class="rate-modal__ok-button">
+        <div class="ok" (click)="saveRating()">Ок</div>
+    </div>
 </div>

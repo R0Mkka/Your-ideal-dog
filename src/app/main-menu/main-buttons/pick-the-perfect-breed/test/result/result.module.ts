@@ -6,6 +6,7 @@ import { SharedModulesModule } from 'src/app/shared-modules/shared-modules.modul
 import { ResultRoutingModule } from './result-routing.module';
 
 import { RateComponent } from '../result/rate/rate.component';
+import { StarsComponent } from './rate/stars/stars.component';
 import { ResultComponent } from './result.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ResultComponent } from './result.component';
     ],
     declarations: [
         RateComponent,
+        StarsComponent,
         ResultComponent
     ],
     exports: []

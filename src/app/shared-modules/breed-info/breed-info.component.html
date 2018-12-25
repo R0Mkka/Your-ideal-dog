@@ -19,6 +19,21 @@
             <div class="specification">
                 <h3>Цена: {{ breed.cost }}$</h3>
                 <h3>Страна: {{ breed.country }}</h3>
+                <h3>Группы:</h3>
+                
+                <div class="groups" #groups>
+                    <p *ngIf="breed.decorative">Декоративные</p>
+                    <p *ngIf="breed.fighting">Бойцовские</p>
+                    <p *ngIf="breed.watchdog">Сторожевые</p>
+                    <p *ngIf="breed.sled">Ездовые</p>
+                    <p *ngIf="breed.hunter">Охотничьи</p>
+                    <p *ngIf="breed.forFamily">Для семьи</p>
+                    <p *ngIf="breed.forChildren">Для детей</p>
+                </div>
+
+                <div *ngIf="!groups.textContent" class="no-groups">
+                    <p>Отсутствуют</p>
+                </div>
             </div>
         </div>
     
