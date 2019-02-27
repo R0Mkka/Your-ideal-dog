@@ -1,0 +1,64 @@
+.button-red, .button-green,
+.button-blue, .button-purple {
+    cursor: pointer;
+    position: relative;
+    background-color: $black;
+    border: none;
+    border-radius: 15px;
+    color: $white;
+}
+
+.button-red:before,
+.button-green:before,
+.button-blue:before,
+.button-purple:before {
+    content:'';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 5;
+    width: 0px;
+    height: 100%;
+    padding: 0px;
+    border-radius: 15px;
+    transition: all .3s ease-in-out;
+}
+
+.button-red:before { background: $red; }
+.button-green:before { background: $green; }
+.button-blue:before { background: $blue; }
+.button-purple:before { background: $purple; }
+
+.button-red:hover:before,
+.button-green:hover:before,
+.button-blue:hover:before,
+.button-purple:hover:before {
+    width: 100%;
+}
+
+.button-red, .button-green,
+.button-blue, .button-purple {
+    .button-text {
+        position: relative;
+        z-index: 10;
+    }
+
+    .button-text::selection {
+        background: transparent;
+    }
+}
+
+.button {
+    cursor: pointer;
+    position: relative;
+    padding: 10px 30px;
+    background-color: $black;
+    border: 1px solid #333333;
+    color: $white;
+    transition: .3s all ease-in-out;
+}
+
+.button:hover {
+    background-color: $white;
+    color: $black;
+}

@@ -1,0 +1,66 @@
+.workspace-red,
+.workspace-green,
+.workspace-blue,
+.workspace-purple {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 75%;
+    height: 85%;
+    padding: 15px;
+    border-radius: 30px;
+}
+
+.workspace-red { border: 5px solid $red; }
+.workspace-green { border: 5px solid $green; }
+.workspace-blue { border: 5px solid $blue; }
+.workspace-purple { border: 5px solid $purple; }
+
+.workspace {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 75%;
+    height: 85%;
+    padding: 15px;
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 30px;
+}
+
+.text-red, .text-green,
+.text-blue, .text-purple {
+    position: relative;
+    z-index: 1;
+    padding: 15px 25px;
+    border-radius: 20px;
+    font-size: inherit;
+    font-weight: inherit;
+    color: $white;
+}
+
+.workspace-text {
+    position: relative;
+    z-index: 1;
+    padding: 15px 25px;
+    border-radius: 20px;
+    font-size: inherit;
+    font-weight: inherit;
+    color: $white;
+}
+
+.text-red { background-color: $red; }
+.text-green { background-color: $green; }
+.text-blue { background-color: $blue; }
+.text-purple { background-color: $purple; }
+
+.text-red::selection,
+.text-green::selection,
+.text-blue::selection,
+.text-purple::selection, {
+    background: transparent; 
+}
