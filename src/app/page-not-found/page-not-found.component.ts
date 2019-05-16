@@ -21,7 +21,7 @@ export class PageNotFoundComponent extends WorkingWindow implements OnInit {
             super(loading, designColor, localStorage, cdRef, 1);
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.showContent(600);
     }

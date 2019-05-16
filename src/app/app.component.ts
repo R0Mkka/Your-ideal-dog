@@ -30,13 +30,13 @@ export class AppComponent implements OnInit {
             this.alive = true;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.subscribeOnLoading();
         this.subscribeOnDesignColorChanges();   
         this.listenForAutoAlertClosing(); 
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.alive = false;
     }
 

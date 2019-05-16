@@ -34,7 +34,7 @@ export class ResultsTableComponent extends WorkingWindow implements OnInit {
             this.questionsAmount = 14;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.showContent(1000);
         this.initResultsList();

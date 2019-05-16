@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { takeWhile } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -10,7 +10,8 @@ import { ColorClasses } from 'src/app/dataTypes/colorClasses';
 @Component({
     selector: 'home-button',
     templateUrl: './home-button.component.html',
-    styleUrls: ['./home-button.component.scss']
+    styleUrls: ['./home-button.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeButtonComponent implements OnInit, OnDestroy {
     public colorClasses: ColorClasses;
@@ -23,12 +24,12 @@ export class HomeButtonComponent implements OnInit, OnDestroy {
             this.alive = true;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.subscribeOnDesignColorChanges();
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.alive = false;
     }
 

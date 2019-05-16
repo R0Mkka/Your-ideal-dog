@@ -30,7 +30,7 @@ export class ResultComponent extends WorkingWindow implements OnInit {
             this.winnerScales = [];
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.showContent(1000);
         this.initWinners();

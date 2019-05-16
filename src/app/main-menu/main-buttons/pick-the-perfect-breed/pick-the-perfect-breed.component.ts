@@ -21,7 +21,7 @@ export class PickThePerfectBreedComponent extends WorkingWindow implements OnIni
             super(loading, designColor, localStorage, cdRef, 2);
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.showContent(1000);
     }

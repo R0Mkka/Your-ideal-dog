@@ -21,7 +21,7 @@ export class BackButtonComponent implements OnInit, OnDestroy {
             this.alive = true;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.subscribeOnDesignColorChanges();
     }

@@ -18,5 +18,7 @@ export interface IBreed {
     forFamily?: boolean;
     fighting?: boolean;
     hypoallergenic?: boolean;
+    forChildren?: boolean;
+    sled?: boolean;
     points: number;
 }

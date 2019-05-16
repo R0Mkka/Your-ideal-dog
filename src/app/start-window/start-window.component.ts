@@ -21,7 +21,7 @@ export class StartWindowComponent extends WorkingWindow implements OnInit {
             super(loading, designColor, localStorage, cdRef, 3);
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.showContent(1000);
     }

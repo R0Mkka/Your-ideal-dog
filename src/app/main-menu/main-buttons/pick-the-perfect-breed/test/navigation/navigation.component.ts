@@ -22,7 +22,7 @@ export class NavigationComponent implements OnInit {
         this.isOpen = false;
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
     }
 

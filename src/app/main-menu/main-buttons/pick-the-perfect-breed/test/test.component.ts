@@ -51,7 +51,7 @@ export class TestComponent extends WorkingWindow implements OnInit, canComponent
             this.isTestReady = false;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.showContent(1000);
         this.subscribeOnNavigateAway();

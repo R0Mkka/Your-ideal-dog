@@ -39,7 +39,7 @@ export class FavoriteBreedsComponent extends WorkingWindow implements OnInit {
             this.favoriteBreedsCount = 0;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.showContent(1000);
         this.initFavoriteBreeds();

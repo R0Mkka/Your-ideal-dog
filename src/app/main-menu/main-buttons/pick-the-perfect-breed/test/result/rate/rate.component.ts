@@ -26,7 +26,7 @@ export class RateComponent implements OnInit, OnDestroy {
             this.rating = 0;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.subscribeOnDesignColorChanges();
     }

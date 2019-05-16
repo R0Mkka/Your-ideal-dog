@@ -36,7 +36,7 @@ export class BreedInfoComponent implements OnInit {
             this.isFavoriteImageLoaded = false;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initDesignColor();
         this.getBreedDescription('Австралийская овчарка');
         this.setFavoriteImage();

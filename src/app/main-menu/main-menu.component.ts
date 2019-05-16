@@ -5,7 +5,7 @@ import { DesignColorService } from 'src/app/core/design-color/design-color.servi
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 
 import { WorkingWindow } from 'src/app/classes/workingWindow';
-import { Button, main_buttons, other_buttons } from './main-menu.config';
+import { Button, mainButtons, otherButtons } from './main-menu.config';
 
 @Component({
     selector: 'main-menu',
@@ -24,11 +24,11 @@ export class MainMenuComponent extends WorkingWindow implements OnInit {
         cdRef: ChangeDetectorRef) {
             super(loading, designColor, localStorage, cdRef, 2);
             
-            this.mainButtons = main_buttons;
-            this.otherButtons = other_buttons;
+            this.mainButtons = mainButtons;
+            this.otherButtons = otherButtons;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.showContent(1000);
     }

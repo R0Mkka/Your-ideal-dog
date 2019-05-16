@@ -28,7 +28,7 @@ export class CommentListComponent implements OnInit {
             this.isServerBroken = false;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initAllComments();
     }
 

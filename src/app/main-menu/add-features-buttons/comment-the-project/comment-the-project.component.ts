@@ -66,7 +66,7 @@ export class CommentTheProjectComponent extends WorkingWindow implements OnInit,
             this.alertType = Alerts.error;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.createForm();
         this.initColorClasses();
         this.showContent(1000);

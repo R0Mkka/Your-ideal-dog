@@ -28,7 +28,7 @@ export class AlertComponent implements OnInit {
             this.showAlert = false;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.subscribeOnAlertShow();
         this.subscribeOnAlertSettingsChanges();
     }

@@ -36,7 +36,7 @@ export class BreedsListComponent extends WorkingWindow implements OnInit {
             this.isServerBroken = false;
         }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initColorClasses();
         this.showContent(1000);
         this.initBreedsList();

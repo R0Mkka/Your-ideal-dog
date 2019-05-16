@@ -3,7 +3,7 @@ export interface Button {
     route: string;
 }
 
-export const main_buttons: Button[] = [
+export const mainButtons: Button[] = [
     {
         name: 'Подобрать идеальную собаку',
         route: 'pick-the-perfect-breed'
@@ -22,7 +22,7 @@ export const main_buttons: Button[] = [
     }          
 ];
 
-export const other_buttons: Button[] = [
+export const otherButtons: Button[] = [
     {
         name: 'Изменить цвет дизайна',
         route: 'change-design'
